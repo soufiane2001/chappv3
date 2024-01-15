@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,TextInput,Button, FlatList ,Image,TouchableOpacity, Alert} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button, FlatList ,Image,TouchableOpacity, Alert, Switch} from 'react-native';
 
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -66,7 +66,8 @@ export default function Cameras({navigation ,route}) {
     const [factures, setFactures] = useState([]);
     const [componentWidth, setComponentWidth] = React.useState(0);
     const [recognizedText, setRecognizedText] = useState('');
-
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
 
     const pickImage = async () => {
@@ -91,7 +92,8 @@ export default function Cameras({navigation ,route}) {
         const uploadUrl = await uploadImageAsync(result.assets[0].uri);
         console.log(uploadUrl)
        recognizeText(uploadUrl)
-       updateData(uploadUrl)
+       if(isEnabled){ updateData(uploadUrl)}
+      
 }catch(e){
   return e
 }
@@ -127,7 +129,7 @@ export default function Cameras({navigation ,route}) {
           {
             text: 'accepter',
             onPress: async () => {
-              alert(1)
+             
               const { status } = await Location.requestForegroundPermissionsAsync();
         console.log(status)
        
@@ -155,7 +157,7 @@ if (status == 'granted') {
                let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
               const uploadUrl = await uploadImageAsync(result.assets[0].uri);
         
-        
+              if(isEnabled){ updateData(uploadUrl)}
             recognizeText(uploadUrl)
            
               }
@@ -596,6 +598,18 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
        >
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <View style={{marginTop:"5%",display:'flex',flexDirection:'row',justifyContent:'space-between'}} >
   <TouchableOpacity  onPress={()=>{navigation.navigate("Home")}}>
        <Icon name="home" size={getResponsiveFontSize(35)} color="white" style={{marginLeft:'2.5%'}}/>
@@ -608,10 +622,27 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 </View>
 
 
+<View style={{width:"100%",display:'flex',flexDirection:'row',alignItems:'center'}}>
+  <Text style={{fontSize:getResponsiveFontSize(16),fontFamily:'PoppinsRegular',color:'black'}}>Enregister les scans</Text>
+      <Switch
+        trackColor={{false: '#767577', true: '#81b0ff'}}
+        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+        style={{transform: [{ scaleX: 0.65 }, { scaleY: 0.65 }],}}
+      />
+    </View>
 
 
 
 <View style={{ display:'flex',justifyContent:'center',alignItems:'center',height:'80%'}}>
+
+
+
+
+
+
 
 {imageUri && <Image source={{ uri: imageUri}} style={{ width: 200, height: 200 }} />}
 

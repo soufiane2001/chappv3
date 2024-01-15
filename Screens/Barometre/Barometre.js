@@ -405,7 +405,7 @@ m+=parseFloat(y.montant)
 
 
 {m>0 &&
-<LinearGradient  style={{height:'370%',opacity:0.2,borderRadius:getResponsiveFontSize(15),width:`${ (((m/x.montant)*100+7)<100 ? ((m/x.montant)*100+7) : 107)}%`,backgroundColor:'white',position:'absolute',top:"0%",left:"0%",paddingHorizontal:"2%",flex:1,paddingVertical:"3%"}}
+<LinearGradient  style={{height:getResponsiveFontSize(10),opacity:0.2,borderRadius:getResponsiveFontSize(15),width:`${ (((m/x.montant)*100+7)<100 ? ((m/x.montant)*100+7) : 107)}%`,backgroundColor:'white',position:'absolute',top:"0%",left:"0%",paddingHorizontal:"2%",flex:1,paddingVertical:"3%"}}
 colors={['#F3F0F0',m/x.montant*100 <30 ?'gray' :m/x.montant*100 <80 ? 'blue' : 'red']}
 start={{ x: 0, y: 0 }} // Start position (top-left)
 end={{ x: 0.75, y: 1.85 }} 

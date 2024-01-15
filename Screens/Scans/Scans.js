@@ -138,6 +138,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 <ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(25)}}>
+
   <View style={{ display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
   {images.length>0 && (
     images.map(((x,key)=>{

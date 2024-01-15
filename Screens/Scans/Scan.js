@@ -80,7 +80,7 @@ useEffect(()=>{
         const querySnapshot=await getDocs(docRef)
         let todos=[]
         querySnapshot.forEach((doc) => {
-            route.params.scanid
+           
               const itemData = doc.data();
               console.log(itemData.factures)
               setImages(itemData.factures)
@@ -100,8 +100,105 @@ useEffect(()=>{
         
       }, [])
     );
+
     
 
+
+
+
+
+
+
+/******************************** */
+
+
+
+
+
+const remove=async()=>{
+
+  setload('block')
+
+  var facturess=[];
+  const values= await AsyncStorage.getItem("userid");
+  const docRef = await query(collection(db, "users"),where("id","==",values));
+  const querySnapshot=await getDocs(docRef)
+  let todos=[]
+  querySnapshot.forEach(async(doc) => {
+   const itemData = doc.data();
+
+
+   const item = {
+     id: itemData.id,
+     nom: itemData.nom,
+     prenom: itemData.prenom, 
+     secteur: itemData.secteur, 
+     ville: itemData.ville,
+     budget: itemData.budget,  
+     budgetinitial: itemData.budgetinitial,  
+     depense: itemData.depense, 
+     fonction: itemData.fonction, 
+     Datenaissance:itemData.Datenaissance,
+     dateinscription:itemData.dateinscription,
+     factures:itemData.factures
+  };
+   todos.push(item)
+  
+    facturess=item.factures;
+  facturess.splice(route.params.scanid, 1);
+ 
+  console.log(facturess)
+  });
+  
+  
+  //var facturess=item;
+
+//  facturess.splice(route.params.scanid, 1);
+  
+  //setload('none')
+  
+
+  const q = query(collection(db, "users"), where("id", '==',values));
+  const querySnapshots=await getDocs(q);
+
+      querySnapshots.forEach((doc) => {
+        // Update each document individually
+        const docRef = doc.ref;
+        updateDoc(docRef, { 
+          id: values,
+          nom: todos[0].nom,
+          prenom: todos[0].prenom, 
+          secteur: todos[0].secteur, 
+          ville: todos[0].ville,
+          budget: todos[0].budget,  
+          depense:todos[0].depense , 
+          fonction:  todos[0].fonction, 
+          Datenaissance: todos[0].Datenaissance,
+          dateinscription:todos[0].dateinscription,
+          budgetinitial: todos[0].budgetinitial,
+          factures: facturess
+        }
+          
+          )
+          .then(() => {
+           
+            setload('none')
+           navigation.navigate('Scans')
+      
+           
+          })
+          .catch((error) => {
+         
+            setload('none')
+          });
+      });
+  
+  
+  
+
+
+
+}
 
 
 
@@ -132,13 +229,22 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
          colors={['#FF5733', '#FFC300', '#FFC500']}
        
        >
-<TouchableOpacity style={{marginTop:"5%"}} onPress={()=>{navigation.navigate("Home")}}>
-<Icon name="home" size={getResponsiveFontSize(35)} color="white" style={{marginLeft:'2.5%'}}/>
 
-</TouchableOpacity>
+<View  style={{paddingHorizontal:"1%",paddingVertical:"0%",display:'flex',flexDirection:'row',justifyContent:'space-between'}}>     
+  <TouchableOpacity style={{marginTop:"5%"}} onPress={()=>{navigation.navigate("Home")}}>
+   <Icon name="home" size={getResponsiveFontSize(35)} color="white" style={{marginLeft:'2.5%'}}/>
+  </TouchableOpacity>
+
+ <TouchableOpacity style={{marginTop:"5%"}} onPress={()=>{remove()}}>
+  <Icon name="trash" size={getResponsiveFontSize(30)} color="white" />
+ </TouchableOpacity>
+
+</View>  
+
 
 
 <ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(15)}}>
+
   <View style={{ display:'flex',flexDirection:'row',justifyContent:'space-around',flexWrap:'wrap'}}>
   {images.length>0 && (
     

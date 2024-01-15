@@ -759,6 +759,11 @@ const showit=()=>{
       colors={['white', 'white', 'white']}
     
     >
+<Toast
+        message={toastMessage}
+        isVisible={toastVisible}
+        onDismiss={() => setToastVisible(false)}
+      />
 
 
 
@@ -768,11 +773,6 @@ const showit=()=>{
 </View>
 
 
-<Toast
-        message={toastMessage}
-        isVisible={toastVisible}
-        onDismiss={() => setToastVisible(false)}
-      />
 
 
 
@@ -957,7 +957,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     position: 'absolute',
-    bottom: 20,
+    zIndex:44,
+    bottom: 5,
     left: 20,
     right: 20,
     flexDirection: 'row',

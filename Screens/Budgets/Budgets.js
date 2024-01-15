@@ -15,16 +15,49 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import ModalSelector from 'react-native-modal-selector';
 import { Calendar } from 'react-native-calendars';
 import { Modal } from 'react-native';
-import Toast from 'react-native-toast-message';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
+
+
+
+
+
+
+const Toast = ({ message, isVisible, onDismiss }) => {
+  return (
+    <>
+      {isVisible && (
+        <View style={styles.toastContainer}>
+          <Text style={styles.toastText}>{message}</Text>
+          <TouchableOpacity onPress={onDismiss} style={styles.dismissButton}>
+            <Text style={styles.dismissButtonText}>Dismiss</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </>
+  );
+};
+
+
+
+
 function   Budgets({navigation ,route}) {
 
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+const showToast = (message) => {
+    setToastMessage(message);
+    setToastVisible(true);
+    setTimeout(() => {
+      setToastVisible(false);
+    }, 3000); // Adjust the duration as needed
+  };
+  
 
 
     const age = [
@@ -593,6 +626,7 @@ const values = await AsyncStorage.getItem('userid');
             .then(() => {
              // console.log(`Document with ID ${doc.id} successfully updated!`);
               show()
+              showToast('modification bien traite')
               setModalInitial(false)
             })
           
@@ -698,21 +732,6 @@ const showit=()=>{
 
 
 
-const showToast=()=>{
-  Toast.show({
-    position: 'top', // 'top' or 'bottom'
-    text1: 'Success', 
-    text2: 'modification', // Subtitle text
-    visibilityTime: 3000, // Time (in milliseconds) to auto-hide the toast
-    autoHide: true, // Automatically hide the toast after visibilityTime
-    topOffset: 30, // Offset from the top (if position is 'top')
-    bottomOffset: 30, 
-    text1Style:{
-      fontSize: 45,
-      fontWeight: '400'
-    },
-  })}
-
 
 
 
@@ -752,9 +771,14 @@ const showToast=()=>{
 
 
 
-<View style={{position:'absolute',zIndex:1654,backgroundColor:'red',width:'100%'}}>
-<Toast  config={{text:{fontSize:getResponsiveFontSize(25)}}} ref={(ref) => Toast.setRef(ref)}/>
-</View>
+<Toast
+        message={toastMessage}
+        isVisible={toastVisible}
+        onDismiss={() => setToastVisible(false)}
+      />
+
+
+
 
 
 
