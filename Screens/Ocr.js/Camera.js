@@ -17,7 +17,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as firebase from "firebase/app";
 import * as Location from 'expo-location';
-
+import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { db } from '../../Firebase/FirebaseConfig';
+import { Ionicons } from '@expo/vector-icons';
 const storage = getStorage();
 
 
@@ -59,9 +63,15 @@ export default function Cameras({navigation ,route}) {
 
     const [imageUri, setImageUri] = useState(null);
     const [imageurl, setImageUrl] = useState(null);
+    const [factures, setFactures] = useState([]);
     const [componentWidth, setComponentWidth] = React.useState(0);
     const [recognizedText, setRecognizedText] = useState('');
+
+
+
     const pickImage = async () => {
+    
+      try{
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
          allowsEditing: true,
@@ -71,22 +81,20 @@ export default function Cameras({navigation ,route}) {
   
       if (!result.assets[0].cancelled) {
         setImageUri(result.assets[0].uri);
-      }
-
+      
+}
 
 
     
         let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
-      
-        
-
+  
         const uploadUrl = await uploadImageAsync(result.assets[0].uri);
-
-
-    
-
+        console.log(uploadUrl)
        recognizeText(uploadUrl)
-
+       updateData(uploadUrl)
+}catch(e){
+  return e
+}
 
     };
 
@@ -119,8 +127,9 @@ export default function Cameras({navigation ,route}) {
           {
             text: 'accepter',
             onPress: async () => {
+              alert(1)
               const { status } = await Location.requestForegroundPermissionsAsync();
-        
+        console.log(status)
        
 if (status == 'granted') {
   console.log('Permission to access location was denied');
@@ -297,13 +306,15 @@ lines.forEach(line => {
 });
 
       
-       console.log(amounts);
-       
-        const largestNumber = findLargestNumber(amounts);
-        console.log(largestNumber)
+       //console.log(amounts);
+       let newArray = amounts.filter(value => !isNaN(value));
+   //    console.log(newArray)
+        const largestNumber = findLargestNumber(newArray);
+      //  console.log(largestNumber)
         
         const text = data.responses[0].textAnnotations[0].description;
- if(text!=undefined && largestNumber!=undefined){
+
+        if(newArray.length>0 && largestNumber!=undefined){
           setload('none')
  navigation.navigate('OcrResult',{prix:largestNumber})
           }
@@ -424,8 +435,142 @@ useEffect(()=>{
       const [loads, setload] = React.useState("none");
 
 
+/**********************************888888 */
+  
+
+
+const updateData =async (x) => {
+  var values = await AsyncStorage.getItem('userid');
+  var scans=[];
+  var docRef = await query(collection(db, "users"),where("id","==",values));
+  var querySnapshot=await getDocs(docRef)
+  var todos=[]
+  querySnapshot.forEach((doc) => {
+        const itemData = doc.data();
+       
+        console.log('----------------------')
+        console.log(itemData.factures)
+        itemData.factures.map(x=>{
+          scans.push(x)
+        })
+         
+      })
+
+  setload('block')
+scans.push(x)  
+
 
   
+  
+   values= await AsyncStorage.getItem("userid");
+  docRef = await query(collection(db, "users"),where("id","==",values));
+   querySnapshot=await getDocs(docRef)
+   todos=[]
+  querySnapshot.forEach(async(doc) => {
+   const itemData = doc.data();
+
+   const item = {
+     id: itemData.id,
+     nom: itemData.nom,
+     prenom: itemData.prenom, 
+     secteur: itemData.secteur, 
+     ville: itemData.ville,
+     budget: itemData.budget,  
+     budgetinitial: itemData.budgetinitial,  
+     depense: itemData.depense, 
+     fonction: itemData.fonction, 
+     Datenaissance:itemData.Datenaissance,
+     dateinscription:itemData.dateinscription
+  
+  };
+   todos.push(item)
+  
+  });
+  
+  
+  
+  
+  
+  
+  
+  const q = query(collection(db, "users"), where("id", '==',values));
+  const querySnapshots=await getDocs(q);
+ 
+      querySnapshots.forEach((doc) => {
+      
+        const docRef = doc.ref;
+        updateDoc(docRef, { 
+          id: values,
+          nom: todos[0].nom,
+          prenom: todos[0].prenom, 
+          secteur: todos[0].secteur, 
+          ville: todos[0].ville,
+          budget: todos[0].budget,  
+          depense: todos[0].depense, 
+          fonction:  todos[0].fonction, 
+          Datenaissance: todos[0].Datenaissance,
+          dateinscription:todos[0].dateinscription,
+          budgetinitial: todos[0].budgetinitial,
+          factures:scans
+        }
+          
+          )
+          .then(() => {
+     
+            setload('none')
+          
+          })
+          .catch((error) => {
+            setload("none")
+            
+          });
+      });
+  
+  
+    
+
+
+
+
+    }
+  
+    const fetchItemsFromFirebase =async () => {
+  
+      const values = await AsyncStorage.getItem('userid');
+        
+        const docRef = await query(collection(db, "users"),where("id","==",values));
+        const querySnapshot=await getDocs(docRef)
+        let todos=[]
+        querySnapshot.forEach((doc) => {
+              const itemData = doc.data();
+              setFactures(itemData.factures)
+              console.log('----------------------')
+              console.log(itemData.factures)
+                })
+      
+      
+      
+      
+      }
+
+
+    useFocusEffect(
+      React.useCallback(() => {
+    
+        fetchItemsFromFirebase()     
+        
+      }, [])
+    );
+    
+
+
+
+
+
+
+
+/***********************************88 */
+
     return (
      
         <View onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%",paddingVertical:'0%'}}>
@@ -437,6 +582,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 }}>
   
   <ActivityIndicator size="large" color="#007AFF" />
+
 </View>
 </View>
 
@@ -448,19 +594,29 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
          colors={['#FF5733', '#FFC300', '#FFC500']}
        
        >
-<TouchableOpacity style={{marginTop:"5%"}} onPress={()=>{navigation.navigate("Home")}}>
-<Icon name="home" size={getResponsiveFontSize(35)} color="white" style={{marginLeft:'2.5%'}}/>
 
-</TouchableOpacity>
+
+<View style={{marginTop:"5%",display:'flex',flexDirection:'row',justifyContent:'space-between'}} >
+  <TouchableOpacity  onPress={()=>{navigation.navigate("Home")}}>
+       <Icon name="home" size={getResponsiveFontSize(35)} color="white" style={{marginLeft:'2.5%'}}/>
+       
+   </TouchableOpacity>
+
+   <TouchableOpacity  onPress={()=>{navigation.navigate("Scans")}}>
+       <Ionicons name="albums" size={getResponsiveFontSize(35)} color="white" />
+   </TouchableOpacity>
+</View>
+
+
+
 
 
 <View style={{ display:'flex',justifyContent:'center',alignItems:'center',height:'80%'}}>
 
 {imageUri && <Image source={{ uri: imageUri}} style={{ width: 200, height: 200 }} />}
 
-<Entypo name="camera" size={getResponsiveFontSize(75)} color="white" onPress={launchCamera} style={{marginBottom:'10%'}} />
-<MaterialIcons name="library-books" size={getResponsiveFontSize(75)} onPress={pickImage} style={{marginTop:'10%'}} color="white" />
-
+<Entypo name="camera" size={getResponsiveFontSize(75)} color="white" onPress={()=>{launchCamera()}} style={{marginBottom:'10%'}} />
+<MaterialIcons name="library-books" size={getResponsiveFontSize(75)} onPress={()=>{pickImage()}} style={{marginTop:'10%'}} color="white" />
 </View>
 
 

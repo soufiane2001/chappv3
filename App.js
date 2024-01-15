@@ -3,7 +3,7 @@ import { StyleSheet, View,TextInput,Button, FlatList } from 'react-native';
 
 import { useState } from 'react';
 import React from 'react';
-
+import { ToastProvider } from 'react-native-toast-message';
 import { NavigationContainer} from '@react-navigation/native';
 import   {createNativeStackNavigator }from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
@@ -27,6 +27,11 @@ import Statistique from './Screens/Statistique/Statistique';
 import AddDepense from './Screens/AddDepense/AddDepense';
 import { ClerkProvider } from '@clerk/clerk-expo';
 import ResetPass from './Screens/ResetPass/ResetPass';
+import Scans from './Screens/Scans/Scans';
+import Scan from './Screens/Scans/Scan';
+import Depenses from './Screens/Depenses/Depenses';
+import Budgets from './Screens/Budgets/Budgets';
+import Barometre from './Screens/Barometre/Barometre';
 
 
 
@@ -62,8 +67,9 @@ export default function App() {
 
   return (
     <ClerkProvider publishableKey={'pk_test_c3VyZS1yYWJiaXQtNzcuY2xlcmsuYWNjb3VudHMuZGV2JA'}>
+     
 <NavigationContainer>
-    <Stack.Navigator >
+    <Stack.Navigator initialRouteName='Login' >
 
         <Stack.Screen name="Registre"component={Signin} options={{ title: 'registre',headerShown:false }}/>
         <Stack.Screen name="Login" component={Login} options={{ title: 'login',headerShown:false }} />
@@ -77,10 +83,14 @@ export default function App() {
         <Stack.Screen name="Statistique" component={Statistique}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="AddDepense" component={AddDepense}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="ResetPass" component={ResetPass}  options={{ title: 'Welcome',headerShown:false }} />
-
-  
+        <Stack.Screen name="Scans" component={Scans}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="Scan" component={Scan}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="depenses" component={Depenses}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="budgets" component={Budgets}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="baromete" component={Barometre}  options={{ title: 'Welcome',headerShown:false }} />
     </Stack.Navigator>
   </NavigationContainer>
+
 </ClerkProvider>
   );
 }

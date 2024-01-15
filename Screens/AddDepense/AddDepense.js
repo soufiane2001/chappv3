@@ -167,14 +167,16 @@ function AddDepense({navigation,route }) {
             const day = today.getDate().toString().padStart(2, '0');
             const dateString = `${year}-${month}-${day}`;
           
-            
+            let stringWithPeriod = prix.replace(',', '.');
+
+let convertedNumber = parseFloat(stringWithPeriod);
             const updatedItems = depense.map((item,key) => {
               // Check if the current item's id matches the id to update
       
             if (key == route.params.num) {
               //  alert(key)
                // Update the name property of the matched item
-                return { ...item, depense: [...item.depense,{montant:prix,date:dateString}] };
+                return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString}] };
               }
               // If the id doesn't match, return the original item
               return item;

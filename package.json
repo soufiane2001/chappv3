@@ -56,7 +56,9 @@
     "react-native-svg-charts": "^5.4.0",
     "react-native-tesseract-ocr": "^2.0.3",
     "react-native-text-detector": "^0.0.6",
-    "react-native-toast-message": "^2.1.6",
+    "react-native-toast-message": "^2.2.0",
+    "react-native-toastify": "^0.2.2",
+    "react-native-web": "~0.19.6",
     "undefined": "expo-auth-session/providers/google"
   },
   "devDependencies": {

@@ -188,7 +188,8 @@ const Setupdepense=({navigation,route }) =>{
           depense:depenses,
         budget:route.params.budget,
         dateinscription:datein,
-        budgetinitial:0 
+        budgetinitial:0 ,
+        factures:[]
       };
 
       const handleOptions = async() => {

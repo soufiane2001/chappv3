@@ -435,29 +435,25 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(40),height:getResponsiveFon
 
 
 
+<View style={{display:"flex",justifyContent:"space-around",width:"100%",height:"50%",paddingHorizontal:"5%",paddingVertical:"10%"}}>
 
 
 
-
-      <View style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:'20%'}}>
-
-
-      <Text style={{fontSize:getResponsiveFontSize(24),fontFamily:"PoppinsMedium",color:'black'}}>{prix.toFixed(2)}Dh  Validee ? </Text>        
-       <TouchableOpacity onPress={()=>{navigation.navigate("Camera")}}>
-        <Ionicons name="md-reload-circle" size={32} color="red" />
-     </TouchableOpacity>
-     
+      <View style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+      <Text style={{fontSize:getResponsiveFontSize(21),fontFamily:"PoppinsMedium",color:'black'}}>{prix.toFixed(2)}Dh  Validee ? </Text>        
+         <TouchableOpacity onPress={()=>{navigation.navigate("Camera")}}>
+            <Ionicons name="md-reload-circle" size={32} color="red" />
+         </TouchableOpacity>
       </View>
    
 
-       
-       <Text style={{fontSize:17,fontFamily:"PoppinsRegular",color:'black',marginTop:'20%'}}>Categories :</Text>
-     
+       <View>
+       <Text style={{fontSize:17,fontFamily:"PoppinsRegular",color:'black'}}>Categories :</Text>
        <ModalSelector
                  data={fonctions}
                  initValue="Select Genre"
                  onChange={handleOptionChange2}
-                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
+                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'100%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
                 >
        
                   <TouchableOpacity>
@@ -465,17 +461,18 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(40),height:getResponsiveFon
                   </TouchableOpacity>
      
                </ModalSelector>
+</View>
 
+               <TouchableOpacity style={{marginLeft:"65%",backgroundColor:"red",paddingHorizontal:"3%",paddingVertical:"2%",width:"35%",borderRadius:getResponsiveFontSize(15)}}>
+                    <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'white',textAlign:"center"}} >Enregistrer</Text>
+                  </TouchableOpacity>
      
 
-          <TouchableOpacity onPress={()=>{ updateData() }} style={{backgroundColor:'red',padding:8,width:'26%',borderRadius:25,
-    marginTop:'75%',marginLeft:'75%'
-        }}>
-            <Text style={{color:'white',fontSize:17,textAlign:'center',fontFamily:"PoppinsRegular",marginTop:'4%'}}>Valider</Text>
-          </TouchableOpacity>
 
 
 
+
+</View>
 
 
 

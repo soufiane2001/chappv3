@@ -15,17 +15,41 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import ModalSelector from 'react-native-modal-selector';
 import { Calendar } from 'react-native-calendars';
 import { Modal } from 'react-native';
-import Toast from 'react-native-toast-message';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+const Toast = ({ message, isVisible, onDismiss }) => {
+  return (
+    <>
+      {isVisible && (
+        <View style={styles.toastContainer}>
+          <Text style={styles.toastText}>{message}</Text>
+          <TouchableOpacity onPress={onDismiss} style={styles.dismissButton}>
+            <Text style={styles.dismissButtonText}>Dismiss</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </>
+  );
+};
 
-function Profile({navigation ,route}) {
+
+
+function Depenses({navigation ,route}) {
 
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-
-
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+const showToast = (message) => {
+    setToastMessage(message);
+    setToastVisible(true);
+    setTimeout(() => {
+      setToastVisible(false);
+    }, 3000); // Adjust the duration as needed
+  };
+  
 
     const age = [
         { key: '18', label: 18 },
@@ -417,15 +441,15 @@ const Savebudgetinitial = async() => {
   
   
   setModalInitial(!isModalInitial);
-
-  const q = query(collection(db, "users"), where("id", '==', route.params.id));
+  const values = await AsyncStorage.getItem('userid');
+  const q = query(collection(db, "users"), where("id", '==', values));
   const querySnapshot=await getDocs(q);
  
       querySnapshot.forEach((doc) => {
         // Update each document individually
         const docRef = doc.ref;
         updateDoc(docRef, { 
-          id: route.params.id,
+          id: values,
           nom: nom,
           prenom: prenom, 
           secteur: secteur, 
@@ -471,13 +495,15 @@ const Savebudgetinitial = async() => {
 
   const Savedepense = () => {
     setModaldepense(false);
-    
+    let stringWithPeriod = selectedDepensem.replace(',', '.');
+
+    let convertedNumber = parseFloat(stringWithPeriod);
     const updatedOptions =depense.map((option, index) => {
       if ((index) == depenseid) {
        
         return {
           ...option,
-          montant: selectedDepensem,
+          montant: convertedNumber,
         };
       }
       return option;
@@ -525,7 +551,8 @@ const Savebudgetinitial = async() => {
 
 
   const fetchItemsFromFirebase =async () => {
-    const docRef = await query(collection(db, "users"),where("id","==",route.params.id));
+    const values = await AsyncStorage.getItem('userid');
+    const docRef = await query(collection(db, "users"),where("id","==",values));
     const querySnapshot=await getDocs(docRef)
     let todos=[]
     querySnapshot.forEach(async(doc) => {
@@ -565,15 +592,15 @@ const Savebudgetinitial = async() => {
   const updateItemsFromFirebase =async () => {
 
 setload("block")
-
-    const q = query(collection(db, "users"), where("id", '==', route.params.id));
+const values = await AsyncStorage.getItem('userid');
+    const q = query(collection(db, "users"), where("id", '==', values));
     const querySnapshot=await getDocs(q);
    
         querySnapshot.forEach((doc) => {
           // Update each document individually
           const docRef = doc.ref;
           updateDoc(docRef, { 
-            id: route.params.id,
+            id: values,
             nom: nom,
             prenom: prenom, 
             secteur: secteur, 
@@ -590,6 +617,7 @@ setload("block")
             .then(() => {
              // console.log(`Document with ID ${doc.id} successfully updated!`);
               show()
+              showToast('modification bien traite')
               setModalInitial(false)
             })
           
@@ -695,20 +723,6 @@ const showit=()=>{
 
 
 
-const showToast=()=>{
-  Toast.show({
-    position: 'top', // 'top' or 'bottom'
-    text1: 'Success', 
-    text2: 'modification', // Subtitle text
-    visibilityTime: 3000, // Time (in milliseconds) to auto-hide the toast
-    autoHide: true, // Automatically hide the toast after visibilityTime
-    topOffset: 30, // Offset from the top (if position is 'top')
-    bottomOffset: 30, 
-    text1Style:{
-      fontSize: 45,
-      fontWeight: '400'
-    },
-  })}
 
 
 
@@ -742,7 +756,7 @@ const showToast=()=>{
 
   return (
 <LinearGradient ref={myRef} onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%"}}
-      colors={['#FF5733', '#FFC300', '#36A2EB']}
+      colors={['white', 'white', 'white']}
     
     >
 
@@ -754,6 +768,11 @@ const showToast=()=>{
 </View>
 
 
+<Toast
+        message={toastMessage}
+        isVisible={toastVisible}
+        onDismiss={() => setToastVisible(false)}
+      />
 
 
 
@@ -773,14 +792,6 @@ const showToast=()=>{
 
 
 
-<View style={{display:loads,backgroundColor:'black',opacity:0.65,position:'absolute',zIndex:1111,top:"0%",left:'0%',width:'100%',height:"100%"}}>
-<View style={{
-display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',height:'100%',width:"100%"
-}}>
-  
-  <ActivityIndicator size="large" color="#007AFF" />
-</View>
-</View>
 
 
 
@@ -788,400 +799,14 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 
+<View style={{height:'100%',paddingHorizontal:'1%'}}>
 
 
 
 
-<View style={{height:'15%',display:'flex',flexDirection:'row',alignItems: 'center',paddingHorizontal:'4%'}}>
 
-<TouchableOpacity onPress={()=>{navigation.navigate("Home")}}>
-<Icon name="home" size={getResponsiveFontSize(29)} color="white" style={{marginLeft:'0%'}}/>
-</TouchableOpacity><Text style={{fontSize:getResponsiveFontSize(23),fontFamily:'PoppinsBold',color:'white',marginLeft:'32.5%'}}>Profile</Text>
 
-</View>
-
-
-
-<View style={{display:'flex',flexDirection:'row',flexWrap:'wrap',width:'100%',justifyContent:'space-around',alignItems:'center',backgroundColor:'white',height:'85%',padding:'5%',borderTopLeftRadius: getResponsiveFontSize(55),borderTopRightRadius:getResponsiveFontSize(55)}}>
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%',marginTop:'60%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/3589/3589034.png"}} style={{width:"100%",height:'100%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"20%",fontSize:getResponsiveFontSize(17),fontFamily:"PoppinsRegular"}}>Info personnel</Text>
-</View>
-
-
-
-
-
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/7180/7180153.png"}} style={{width:"100%",height:'120%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"30%",fontSize:getResponsiveFontSize(17),fontFamily:"PoppinsRegular"}}>transaction</Text>
-</View>
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/6772/6772402.png"}} style={{width:"100%",height:'100%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"20%",fontSize:getResponsiveFontSize(20),fontFamily:"PoppinsRegular"}}>Wallet</Text>
-</View>
-
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/9897/9897155.png"}} style={{width:"100%",height:'100%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"20%",fontSize:getResponsiveFontSize(17),fontFamily:"PoppinsRegular"}}>politique general</Text>
-</View>
-
-{/**
-<Text style={{fontSize:getResponsiveFontSize(17),fontFamily:'PoppinsSemiBold',color:'black',textAlign:'center'}}>Tout vos informations</Text>
-
-
-
-<ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(25)}}>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'#606060',marginLeft:'6.5%',marginTop:'4%'}}>informations personnelles :</Text>
-
-<TextInput 
-                onChangeText={setNom}
-                value={nom}
-                style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'4%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948', }}
-                placeholder="Nom"
-                placeholderTextColor="#BCBCBC" 
-                />
-
-
-
-               <TextInput 
-                  onChangeText={setPrenom}
-                  value={prenom}
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
-                  placeholder="Prenom"
-                  placeholderTextColor="#BCBCBC" 
-                  />
-
-
-
-<TextInput 
-                  onChangeText={setCity}
-                  value={city}
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
-                  placeholder="Ville"
-                  placeholderTextColor="#BCBCBC" 
-                  />
-
-
-<TextInput 
-                  onChangeText={setTel}
-                  value={telephone}
-                  keyboardType="numeric"
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
-                  placeholder="telephone"
-                  placeholderTextColor="#BCBCBC" 
-                  />
-
-
-        
-         
-         
-                  
-
-
-
-
-
-
-
-               <ModalSelector
-                   data={secteurs}
-                   initValue="Select Genre"
-                   onChange={handleOptionChange3}
-                   style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
-                 >
-      
-      
-                  <TouchableOpacity>
-                      <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#BCBCBC'}} >{secteur || 'Secteur d’activité' }</Text>
-                  </TouchableOpacity>
-     
-     
-                </ModalSelector>
-
-
-
-                
-
-
-
-
-
-
-
-
-              <ModalSelector
-                 data={fonctions}
-                 initValue="Select Genre"
-                 onChange={handleOptionChange2}
-                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
-                >
-       
-                  <TouchableOpacity>
-                    <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#BCBCBC'}} >{fonction || 'Fonction' }</Text>
-                  </TouchableOpacity>
-     
-               </ModalSelector>
-
-
-
-
-
-
-
-
-
-
-
-
-          <TouchableOpacity onPress={toggleCalendar}>
-               <View style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}>
-                    <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#BCBCBC'}}>{Calendrier || 'Datenaissance'}</Text>
-     
-                    <Icon name="calendar" size={24} color="black" style={{marginLeft:'55%'}}/>
-              <View style={{position:'absolute',left:'7%',top:'-945%',backgroundColor:'#F3F1F1',width:'90%'}}>
-                  
-                  {isCalendarVisible && (
-                 <DateTimePicker
-                 testID="dateTimePicker"
-                 value={Calendrier.length<1 ? new Date() : datehelp}
-                 mode="date" // "date" for a date picker, "time" for a time picker
-                 is24Hour={true}
-                 display="spinner" // "default" or "spinner"
-                 onChange={onChange}
-    
-               />
-                    )}
-      
-      
-              </View>
-             </View>
-
-
-           </TouchableOpacity>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'#606060',marginLeft:'6.5%',marginTop:'10%'}}>Budget :</Text>
-
-
-
-
-
-
-
-
-<View style={styles.container}>
-
-
-<Modal visible={isModalInitial} animationIn="slideInUp" animationOut="slideOutDown">
-   <View style={styles.modal}>
-     <Text style={styles.modalTitle}>Epargne Actuelle</Text>
-     
-     <TextInput
-           style={styles.textInput}
-           placeholder="1000"
-           keyboardType="numeric"
-           value={budgetinitial}
-           onChangeText={setbudgetinitial}
-
-         />
-
-
-     <View style={styles.buttonContainer}>
-      <Button title="enregistrer" onPress={Savebudgetinitial} color="#007BFF" />
-      <Button title="fermer" onPress={togglebudgetinitial} color="#FF6347" />
-     </View>
-    </View>
-</Modal>
-
-</View>
-
-
-
-
-
-  <View style={styles.container}>
-
-
-<Modal visible={isModalbudged} animationIn="slideInUp" animationOut="slideOutDown">
-   <View style={styles.modal}>
-     <Text style={styles.modalTitle}>Entrez le jour du moi</Text>
-       <RNPickerSelect
-          value={selectedDate}
-          onValueChange={(value) => setSelectedDate(value)}
-          items={numberOptions}
-          style={pickerSelectStyles}
-         />
-
-
-     <View style={styles.buttonContainer}>
-      <Button title="enregistrer" onPress={Savebudgetd} color="#007BFF" />
-      <Button title="fermer" onPress={toggleBudgetd} color="#FF6347" />
-     </View>
-    </View>
-</Modal>
-
-</View>
-
-
-
-
-
-
-<Modal visible={isModalbudgem} animationIn="slideInUp" animationOut="slideOutDown">
-
-
- <View style={styles.modal}>
-      
-         <Text style={styles.modalTitle}>Entrez le montants </Text>
-
-        <TextInput
-           style={styles.textInput}
-           placeholder="1000"
-           value={selectedBudgetm}
-           keyboardType="numeric"
-           onChangeText={setSelectedBudgetm}
-
-         />
-
-
-
-  <View style={styles.buttonContainer}>
-       <Button title="enregistrer" onPress={()=>{Savebudgetm()}} color="#007BFF" />
-        <Button title="fermer" onPress={()=>{toggleBudgetm() }} color="#FF6347" />
-   </View>
- </View>
-
-
-</Modal>
-
-
-
-
-
+<ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(5)}}>
 
 
 
@@ -1212,8 +837,6 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
         <Button title="fermer" onPress={()=>{toggledepense() }} color="#FF6347" />
    </View>
  </View>
-
-
 </Modal>
 
 
@@ -1233,45 +856,9 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 
-{budgets.length>0 && budgets.map((x,index)=>
-
-<View key={index}  style={{backgroundColor:'white',paddingHorizontal:'0%',paddingVertical:'5.5%',borderRadius:15,borderWidth:1,borderColor:'#F7F7F7',marginTop:'4%',
-display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',width:'93%',marginLeft:'3.2%',
-...Platform.select({
-                 ios: {
-                        shadowColor: 'black',
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.1,
-                        shadowRadius: 2,
-                         },
-                   android: {
-                                elevation:5,
-                   },})
-
-}}>
-
-<Image source={{uri:x.icon}} style={{width:"18%",height:'85%',marginBottom:'2%',resizeMode:'contain',borderRadius:50}} />
 
 
 
-<Text style={{width:'40%',fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'black',textAlign:'center',marginLeft:'0%'}}>{x.type}</Text>
-
-
-<TouchableOpacity onPress={()=>{toggleBudgetm(index)}}  style={{backgroundColor:'#4816FF',width:'29%',color:'white',paddingHorizontal:'1%',borderRadius:12,
-   alignSelf:'flex-start',marginRight:'4%',marginTop:'2%',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center'
-     }}>
-
-
-
-<Text style={{fontSize:getResponsiveFontSize(14),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',display:'flex',marginTop:'2%'}}>{x.revenu} dh</Text></TouchableOpacity>
-
-
-
-</View>
-
-
-
-)}
 
 
 
@@ -1281,17 +868,12 @@ display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'cen
 
     
 
-
-
-<Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'#606060',marginLeft:'6.5%',marginTop:'13%'}}>Depense :</Text>
-
-
     {depense.length>0 && depense.map((x,index)=>
 
 
 
 <View key={index}  style={{backgroundColor:'white',paddingHorizontal:'1%',paddingVertical:'5.5%',borderRadius:15,borderWidth:1,borderColor:'#E5E5E7',marginTop:'4%',
-  display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'93%',marginLeft:'3.8%',
+  display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'97%',marginLeft:'1.8%',
 ...Platform.select({
   ios: {
     shadowColor: 'black',
@@ -1305,15 +887,15 @@ display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'cen
 ,marginBottom:'2%'
 }}>
 
-<Image source={{uri:x.photo}} style={{width:"19%",height:'85%',marginBottom:'2%',resizeMode:'contain',borderRadius:50}} />
-  <Text style={{width:'30%',fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'black',textAlign:'center',marginLeft:'0%'}}>{x.type}</Text>
+<Image source={{uri:x.photo}} style={{width:"14%",height:'85%',marginBottom:'2%',resizeMode:'contain',borderRadius:50}} />
+  <Text style={{width:'30%',fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'black',textAlign:'center',marginLeft:'0%'}}>{x.type}</Text>
 
 
 <View style={{
-backgroundColor:'#4816FF',width:'21%',color:'white',paddingHorizontal:'3%',paddingVertical:'0.35%',borderRadius:12,
+backgroundColor:'#4816FF',width:'24%',color:'white',paddingHorizontal:'3%',paddingVertical:'0.35%',borderRadius:12,
 alignSelf:'flex-start',marginTop:'2%',marginLeft:'-2%'
 }}>
-  <Text style={{fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',
+  <Text style={{fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',
 }}>{x.montant}dh</Text>
 </View>
 
@@ -1323,46 +905,17 @@ alignSelf:'flex-start',marginTop:'2%',marginLeft:'-2%'
 
 <TouchableOpacity onPress={()=>{toggledepense(index)}} style={{
 backgroundColor:'#40DC01',color:'white',paddingHorizontal:'2.5%',paddingVertical:'1%',borderRadius:10,display:'flex',flexDirection:'row',
-alignItems:'center',alignSelf:'flex-start',marginTop:'2%',
+alignItems:'center',alignSelf:'flex-start',marginTop:'2%',marginRight:'2%'
 }}>
   <Text style={{fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',
-}}>Montant</Text>
+}}>Modifier</Text>
 
 </TouchableOpacity>
 
   </View>
 
 
-
-
-
-
-
-
-
-
 )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1379,7 +932,6 @@ alignItems:'center',alignSelf:'flex-start',marginTop:'2%',
 
 
 </ScrollView>        
-*/}
 
 
 
@@ -1396,9 +948,32 @@ alignItems:'center',alignSelf:'flex-start',marginTop:'2%',
 }
 
 
-export default Profile
+export default Depenses;
 
 const styles = StyleSheet.create({
+  toastContainer: {
+    position:'absolute',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    padding: 10,
+    borderRadius: 5,
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  toastText: {
+    color: '#fff',
+  },
+  dismissButton: {
+    marginLeft: 10,
+    padding: 5,
+  },
+  dismissButtonText: {
+    color: '#fff',
+  },
     container: {
       flex: 1,
       justifyContent: 'center',

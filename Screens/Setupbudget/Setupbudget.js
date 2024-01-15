@@ -52,13 +52,13 @@ function Setupbudget({navigation ,route}) {
   const [selectedNumber, setSelectedNumber] = useState(1);
   const [revenu, setrevenu] = useState(0);
   const [date, setdate] = useState(0);
-  const [budgets, setBudget] = useState([{type:"Salaire",revenu:0,date:1},
-                                         {type:"Pension retraite",revenu:0,date:1},
-                                         {type:"Revenu Locatif",revenu:0,date:1},
-                                         {type:"Revenu de placement",revenu:0,date:1},
-                                         {type:"Dividendes",revenu:0,date:1},
-                                         {type:"Freelance",revenu:0,date:1},
-                                         {type:"Autres",revenu:0,date:1}
+  const [budgets, setBudget] = useState([{type:"Salaire",revenu:0,date:1,icon:"https://cdn-icons-png.flaticon.com/512/3790/3790140.png"},
+                                         {type:"Pension retraite",revenu:0,date:1,icon:"https://cdn-icons-png.flaticon.com/512/5656/5656069.png"},
+                                         {type:"Revenu Locatif",revenu:0,date:1,icon:"https://uploads-ssl.webflow.com/63f37f4229fe340e55bcd4c8/642585acbcda32f0e324a82f_undraw_House_searching_re_stk8.png"},
+                                         {type:"Revenu de placement",revenu:0,date:1,icon:"https://img.freepik.com/vecteurs-premium/augmentation-du-revenu-fonds-communs-placement-rapport-statistique-boost-icone-productivite-entreprises-isole-fond-blanc-illustration-vectorielle_736051-459.jpg?w=2000"},
+                                         {type:"Dividendes",revenu:0,date:1,icon:"https://cdn-icons-png.flaticon.com/512/2643/2643832.png"},
+                                         {type:"Freelance",revenu:0,date:1,icon:"https://cdn-icons-png.flaticon.com/512/6553/6553383.png"},
+                                         {type:"Autres",revenu:0,date:1,icon:"https://cdn-icons-png.flaticon.com/512/7580/7580275.png"}
 
                                          ]);
 
@@ -594,7 +594,7 @@ setTextInputValue('')
              }}>
 
   
-
+<Image source={{uri:x.icon}} style={{width:"18%",height:'85%',marginBottom:'2%',resizeMode:'contain',borderRadius:50}} />
 
          <Text style={{width:'40%',fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'black',textAlign:'center',marginLeft:'0%'}}>{x.type}</Text>
 
