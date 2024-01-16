@@ -166,6 +166,15 @@ function AddDepense({navigation,route }) {
             const month = (today.getMonth() + 1).toString().padStart(2, '0');
             const day = today.getDate().toString().padStart(2, '0');
             const dateString = `${year}-${month}-${day}`;
+            var currentDate = new Date();
+
+            // Get the current hours and minutes
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes();
+            
+            // Format the result as 'hh:mm'
+            var formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}`;
+            
           
             let stringWithPeriod = prix.replace(',', '.');
 
@@ -176,7 +185,7 @@ let convertedNumber = parseFloat(stringWithPeriod);
             if (key == route.params.num) {
               //  alert(key)
                // Update the name property of the matched item
-                return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString}] };
+                return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString,time:formattedTime}] };
               }
               // If the id doesn't match, return the original item
               return item;

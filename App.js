@@ -32,6 +32,8 @@ import Scan from './Screens/Scans/Scan';
 import Depenses from './Screens/Depenses/Depenses';
 import Budgets from './Screens/Budgets/Budgets';
 import Barometre from './Screens/Barometre/Barometre';
+import Parameter from './Screens/Parametre/Parametre';
+import Parametere from './Screens/Parametre/Parametre';
 
 
 
@@ -85,9 +87,7 @@ export default function App() {
         <Stack.Screen name="ResetPass" component={ResetPass}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="Scans" component={Scans}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="Scan" component={Scan}  options={{ title: 'Welcome',headerShown:false }} />
-        <Stack.Screen name="depenses" component={Depenses}  options={{ title: 'Welcome',headerShown:false }} />
-        <Stack.Screen name="budgets" component={Budgets}  options={{ title: 'Welcome',headerShown:false }} />
-        <Stack.Screen name="baromete" component={Barometre}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="Parameter" component={Parametere}  options={{ title: 'Welcome',headerShown:false }} />
     </Stack.Navigator>
   </NavigationContainer>
 

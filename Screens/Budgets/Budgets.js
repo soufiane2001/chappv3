@@ -815,6 +815,9 @@ const showit=()=>{
 
 <ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(25)}}>
 
+<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'0%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"1%",borderRadius:25}}>
+         <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>Modifier</Text>
+</TouchableOpacity>
 
 
 
@@ -929,68 +932,6 @@ alignItems:'center',alignSelf:'flex-start',marginTop:'2%',marginRight:'2%'
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'8%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"3%",borderRadius:25}}>
-         <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>Modifier</Text>
-</TouchableOpacity>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
 </ScrollView>        

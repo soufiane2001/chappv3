@@ -71,7 +71,7 @@ export default function Cameras({navigation ,route}) {
 
 
     const pickImage = async () => {
-    
+  
       try{
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -82,17 +82,18 @@ export default function Cameras({navigation ,route}) {
   
       if (!result.assets[0].cancelled) {
         setImageUri(result.assets[0].uri);
-      
-}
+        console.log("go")     
+const uploadUrl = await uploadImageAsync(result.assets[0].uri);
+         
+        console.log("this"+uploadUrl)
+       recognizeText(uploadUrl)}
 
 
     
-        let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
+      //  let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
   
-        const uploadUrl = await uploadImageAsync(result.assets[0].uri);
-        console.log(uploadUrl)
-       recognizeText(uploadUrl)
-       if(isEnabled){ updateData(uploadUrl)}
+        
+      // if(isEnabled){ updateData(uploadUrl)}
       
 }catch(e){
   return e
@@ -131,7 +132,7 @@ export default function Cameras({navigation ,route}) {
             onPress: async () => {
              
               const { status } = await Location.requestForegroundPermissionsAsync();
-        console.log(status)
+        
        
 if (status == 'granted') {
   console.log('Permission to access location was denied');
@@ -157,7 +158,7 @@ if (status == 'granted') {
                let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
               const uploadUrl = await uploadImageAsync(result.assets[0].uri);
         
-              if(isEnabled){ updateData(uploadUrl)}
+          //    if(isEnabled){ updateData(uploadUrl)}
             recognizeText(uploadUrl)
            
               }
@@ -202,7 +203,7 @@ if (status == 'granted') {
 
     
     const recognizeText = async (x) => {
-      
+      console.log("start")
       setload('block')
     /*  var myHeaders = new Headers();
       myHeaders.append("apikey", "TMlKq85q7lsDOKOrjKgEwShBgHdpuTiP");

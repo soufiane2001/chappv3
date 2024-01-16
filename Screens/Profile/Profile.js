@@ -417,15 +417,15 @@ const Savebudgetinitial = async() => {
   
   
   setModalInitial(!isModalInitial);
-
-  const q = query(collection(db, "users"), where("id", '==', route.params.id));
+  const values = await AsyncStorage.getItem('userid');
+  const q = query(collection(db, "users"), where("id", '==', values));
   const querySnapshot=await getDocs(q);
  
       querySnapshot.forEach((doc) => {
         // Update each document individually
         const docRef = doc.ref;
         updateDoc(docRef, { 
-          id: route.params.id,
+          id: values,
           nom: nom,
           prenom: prenom, 
           secteur: secteur, 
@@ -525,7 +525,9 @@ const Savebudgetinitial = async() => {
 
 
   const fetchItemsFromFirebase =async () => {
-    const docRef = await query(collection(db, "users"),where("id","==",route.params.id));
+    const values = await AsyncStorage.getItem('userid');
+
+    const docRef = await query(collection(db, "users"),where("id","==",values));
     const querySnapshot=await getDocs(docRef)
     let todos=[]
     querySnapshot.forEach(async(doc) => {
@@ -533,6 +535,7 @@ const Savebudgetinitial = async() => {
      
       setBudget(itemData.budget)
       setDepense(itemData.depense)
+      console.log(itemData)
       const item = {
         id: itemData.id,
         nom: itemData.nom,
@@ -566,14 +569,15 @@ const Savebudgetinitial = async() => {
 
 setload("block")
 
-    const q = query(collection(db, "users"), where("id", '==', route.params.id));
+const values = await AsyncStorage.getItem('userid');
+    const q = query(collection(db, "users"), where("id", '==', values));
     const querySnapshot=await getDocs(q);
    
         querySnapshot.forEach((doc) => {
           // Update each document individually
           const docRef = doc.ref;
           updateDoc(docRef, { 
-            id: route.params.id,
+            id: values,
             nom: nom,
             prenom: prenom, 
             secteur: secteur, 
@@ -613,7 +617,7 @@ setload("block")
 
 
   const show= async () => {
-  
+  console.log("show start")
 
     const fetchedItems = await fetchItemsFromFirebase();
 
@@ -645,11 +649,11 @@ setload("block")
     
     // Parse the given date string into a Date object
     const givenDate = new Date(givenDateString);
-
+  
     if (
-      currentDate.getFullYear() === givenDate.getFullYear() &&
-      currentDate.getMonth() === givenDate.getMonth() &&
-      currentDate.getDate() === givenDate.getDate()
+      currentDate.getFullYear() == givenDate.getFullYear()  &&
+     currentDate.getMonth() == givenDate.getMonth() &&
+    currentDate.getUTCDate() == givenDate.getUTCDate()
     ) {
       setModalInitial(true)
     } 
@@ -749,22 +753,6 @@ const showToast=()=>{
 
 
 
-<View style={{position:'absolute',zIndex:1654,backgroundColor:'red',width:'100%'}}>
-<Toast  config={{text:{fontSize:getResponsiveFontSize(25)}}} ref={(ref) => Toast.setRef(ref)}/>
-</View>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -792,7 +780,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 
-<View style={{height:'15%',display:'flex',flexDirection:'row',alignItems: 'center',paddingHorizontal:'4%'}}>
+<View style={{height:'15%',display:'flex',flexDirection:'row',alignItems: 'center',paddingHorizontal:'1%'}}>
 
 <TouchableOpacity onPress={()=>{navigation.navigate("Home")}}>
 <Icon name="home" size={getResponsiveFontSize(29)} color="white" style={{marginLeft:'0%'}}/>
@@ -802,76 +790,11 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 
-<View style={{display:'flex',flexDirection:'row',flexWrap:'wrap',width:'100%',justifyContent:'space-around',alignItems:'center',backgroundColor:'white',height:'85%',padding:'5%',borderTopLeftRadius: getResponsiveFontSize(55),borderTopRightRadius:getResponsiveFontSize(55)}}>
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%',marginTop:'60%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/3589/3589034.png"}} style={{width:"100%",height:'100%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"20%",fontSize:getResponsiveFontSize(17),fontFamily:"PoppinsRegular"}}>Info personnel</Text>
-</View>
+<View style={{display:'flex',width:'100%',justifyContent:'space-around',alignItems:'center',backgroundColor:'white',height:'85%',padding:'2%',borderTopLeftRadius: getResponsiveFontSize(55),borderTopRightRadius:getResponsiveFontSize(55)}}>
 
 
 
 
-
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/7180/7180153.png"}} style={{width:"100%",height:'120%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"30%",fontSize:getResponsiveFontSize(17),fontFamily:"PoppinsRegular"}}>transaction</Text>
-</View>
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/6772/6772402.png"}} style={{width:"100%",height:'100%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"20%",fontSize:getResponsiveFontSize(20),fontFamily:"PoppinsRegular"}}>Wallet</Text>
-</View>
-
-
-
-<View style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
-  ios: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.20,
-    shadowRadius: 4,
-  },
-  android: {
-    elevation:6,
-  },}) ,display:"flex",justifyContent:"center",alignItems:"center",padding:'3%'}}>
-<Image source={{uri:"https://cdn-icons-png.flaticon.com/512/9897/9897155.png"}} style={{width:"100%",height:'100%',resizeMode:'contain',borderRadius:50}} />
-<Text style={{marginBottom:"20%",fontSize:getResponsiveFontSize(17),fontFamily:"PoppinsRegular"}}>politique general</Text>
-</View>
-
-{/**
-<Text style={{fontSize:getResponsiveFontSize(17),fontFamily:'PoppinsSemiBold',color:'black',textAlign:'center'}}>Tout vos informations</Text>
 
 
 
@@ -901,31 +824,10 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'#606060',marginLeft:'6.5%',marginTop:'4%'}}>informations personnelles :</Text>
-
+<Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'#606060',marginLeft:'6.5%',marginBottom:'0.5%'}}>informations personnelles :</Text>
+<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'3%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"3%",borderRadius:25}}>
+         <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>Modifier</Text>
+</TouchableOpacity>
 <TextInput 
                 onChangeText={setNom}
                 value={nom}
@@ -1084,15 +986,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 
-  <Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'#606060',marginLeft:'6.5%',marginTop:'10%'}}>Budget :</Text>
-
-
-
-
-
-
-
-
+  
 <View style={styles.container}>
 
 
@@ -1119,7 +1013,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 </View>
 
-
+{/**
 
 
 
@@ -1369,17 +1263,15 @@ alignItems:'center',alignSelf:'flex-start',marginTop:'2%',
 
 
 
+*/}
 
 
 
-
-      <TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'8%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"3%",borderRadius:25}}>
-         <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>Modifier</Text>
-</TouchableOpacity>
+     
 
 
 </ScrollView>        
-*/}
+
 
 
 

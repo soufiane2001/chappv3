@@ -23,6 +23,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 
 import { ScrollView } from 'react-native';
 import { FirebaseError } from 'firebase/app';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -197,9 +198,9 @@ const Setupdepense=({navigation,route }) =>{
   setbuttonenable(true)
        // 
         try {
-         const docRef = await addDoc(collection(db, "users"),newUser);
-     
-         navigation.navigate('Profile',{id:route.params.id})
+          const docRef = await addDoc(collection(db, "users"),newUser);
+         await AsyncStorage.setItem("userid",route.params.id);
+         navigation.navigate('Profile')
           } catch (error) {
            return false;
           }
@@ -378,7 +379,7 @@ alignItems:'center',alignSelf:'flex-start',marginRight:'1%',marginTop:'2%'
     
 
 
-<TouchableOpacity disabled={buttonenable} onPress={()=>{handleOptions()}}  style={{width:"25%",marginBottom:'2%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',borderRadius:25}}>
+<TouchableOpacity disabled={false} onPress={()=>{handleOptions()}}  style={{width:"25%",marginBottom:'2%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',borderRadius:25}}>
          <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>FINIR</Text>
 </TouchableOpacity>
 

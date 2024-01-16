@@ -360,7 +360,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
             <View style={{paddingHorizontal:'3%',paddingVertical:"4%",display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
            <TouchableOpacity onPress={async()=>{
             const values = await AsyncStorage.getItem('userid');
-            navigation.navigate('Profile',{id:values})}}>
+            navigation.navigate('Parameter',{id:values})}}>
             <Ionicons name="settings" size={getResponsiveFontSize(26)} color="white" />
            </TouchableOpacity>
             <TouchableOpacity onPress={()=>{navigation.navigate("Camera")}}>
