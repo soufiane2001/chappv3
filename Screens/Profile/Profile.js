@@ -649,7 +649,9 @@ const values = await AsyncStorage.getItem('userid');
     
     // Parse the given date string into a Date object
     const givenDate = new Date(givenDateString);
-  
+    console.log(currentDate.getFullYear()+" "+givenDate.getFullYear())
+    console.log(currentDate.getMonth()+" "+givenDate.getMonth())
+    console.log(currentDate.getUTCDate()+" "+givenDate.getUTCDate())
     if (
       currentDate.getFullYear() == givenDate.getFullYear()  &&
      currentDate.getMonth() == givenDate.getMonth() &&
@@ -722,6 +724,11 @@ const showToast=()=>{
 
 
   const onChange = (event, selectedDate) => {
+
+    if (event?.type === 'dismissed') {
+      setDatehelp(date);
+      return;
+  }
     const currentDate = selectedDate || date;
     setCalendarVisible(Platform.OS === 'ios');
     setCal(currentDate.toLocaleDateString());
@@ -783,8 +790,8 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 <View style={{height:'15%',display:'flex',flexDirection:'row',alignItems: 'center',paddingHorizontal:'1%'}}>
 
 <TouchableOpacity onPress={()=>{navigation.navigate("Home")}}>
-<Icon name="home" size={getResponsiveFontSize(29)} color="white" style={{marginLeft:'0%'}}/>
-</TouchableOpacity><Text style={{fontSize:getResponsiveFontSize(23),fontFamily:'PoppinsBold',color:'white',marginLeft:'32.5%'}}>Profile</Text>
+<Icon name="home" size={getResponsiveFontSize(29)} color="white" style={{marginLeft:'15%'}}/>
+</TouchableOpacity><Text style={{fontSize:getResponsiveFontSize(23),fontFamily:'PoppinsBold',color:'white',marginLeft:'17.5%'}}>Profile</Text>
 
 </View>
 
@@ -1295,7 +1302,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F0F0F0',
+      backgroundColor: 'white',
     },
     text: {
       fontSize: 16,

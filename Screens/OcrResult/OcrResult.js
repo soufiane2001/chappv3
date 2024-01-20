@@ -192,14 +192,22 @@ setload('block')
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
     const day = today.getDate().toString().padStart(2, '0');
     const dateString = `${year}-${month}-${day}`;
+    var currentDate = new Date();
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    
+    // Format the result as 'hh:mm'
+    var formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}`;
+    let stringWithPeriod = prix.toString().replace(',', '.');
 
+    let convertedNumber = parseFloat(stringWithPeriod);    
     
     const updatedItems = depense.map((item,key) => {
       
 
     if ((key+1) == selectenum) {
      
-        return { ...item, depense: [...item.depense,{montant:prix,date:dateString}] };
+        return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString,time:formattedTime,type:'scan'}] };
       }
     
       return item;
@@ -269,7 +277,7 @@ const querySnapshots=await getDocs(q);
         .then(() => {
           
           setload('none')
-          navigation.navigate('Home')
+          fetchItemsFromFirebase()
          
         })
         .catch((error) => {
@@ -361,11 +369,6 @@ const [loads, setload] = React.useState("none");
 
   return (
     <View onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%",paddingVertical:'0%'}}>
-
-<LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'50%',paddingVertical:"3%",display:'flex',justifyContent:'space-around'}}
-      colors={['#FF5733', '#FFC300', '#FFC500']} >
-
-
 <View style={{display:loads,backgroundColor:'black',opacity:0.65,position:'absolute',zIndex:1111,top:"0%",left:'0%',width:'109%',height:"113%"}}>
 <View style={{
 display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',height:'100%',width:"100%"
@@ -374,6 +377,11 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
   <ActivityIndicator size="large" color="#007AFF" />
 </View>
 </View>
+<LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'50%',paddingVertical:"3%",display:'flex',justifyContent:'space-around'}}
+      colors={['#FF5733', '#FFC300', '#FFC500']} >
+
+
+
 
 
 <TouchableOpacity style={{marginTop:"1%"}} onPress={()=>{navigation.navigate("Home")}}>
@@ -463,7 +471,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(40),height:getResponsiveFon
                </ModalSelector>
 </View>
 
-               <TouchableOpacity style={{marginLeft:"65%",backgroundColor:"red",paddingHorizontal:"3%",paddingVertical:"2%",width:"35%",borderRadius:getResponsiveFontSize(15)}}>
+               <TouchableOpacity onPress={()=>{updateData()}} style={{marginLeft:"65%",backgroundColor:"red",paddingHorizontal:"3%",paddingVertical:"2%",width:"35%",borderRadius:getResponsiveFontSize(15)}}>
                     <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'white',textAlign:"center"}} >Enregistrer</Text>
                   </TouchableOpacity>
      

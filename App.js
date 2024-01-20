@@ -34,6 +34,9 @@ import Budgets from './Screens/Budgets/Budgets';
 import Barometre from './Screens/Barometre/Barometre';
 import Parameter from './Screens/Parametre/Parametre';
 import Parametere from './Screens/Parametre/Parametre';
+import Transactions from './Screens/Transactions/Transaction';
+import Wallet from './Screens/Wallet/Wallet';
+import Addcard from './Screens/Wallet/Addcard';
 
 
 
@@ -88,6 +91,9 @@ export default function App() {
         <Stack.Screen name="Scans" component={Scans}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="Scan" component={Scan}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="Parameter" component={Parametere}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="Transactions" component={Transactions}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="Wallet" component={Wallet}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="Addcard" component={Addcard}  options={{ title: 'Welcome',headerShown:false }} />
     </Stack.Navigator>
   </NavigationContainer>
 

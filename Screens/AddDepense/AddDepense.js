@@ -185,7 +185,7 @@ let convertedNumber = parseFloat(stringWithPeriod);
             if (key == route.params.num) {
               //  alert(key)
                // Update the name property of the matched item
-                return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString,time:formattedTime}] };
+                return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString,time:formattedTime,type:'manuelle'}] };
               }
               // If the id doesn't match, return the original item
               return item;

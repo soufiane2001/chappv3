@@ -66,12 +66,12 @@ export default function Cameras({navigation ,route}) {
     const [factures, setFactures] = useState([]);
     const [componentWidth, setComponentWidth] = React.useState(0);
     const [recognizedText, setRecognizedText] = useState('');
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(true);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
 
     const pickImage = async () => {
-  
+    
       try{
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -82,18 +82,19 @@ export default function Cameras({navigation ,route}) {
   
       if (!result.assets[0].cancelled) {
         setImageUri(result.assets[0].uri);
-        console.log("go")     
-const uploadUrl = await uploadImageAsync(result.assets[0].uri);
-         
-        console.log("this"+uploadUrl)
-       recognizeText(uploadUrl)}
+      
+}
 
 
     
-      //  let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
+        let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
   
-        
-      // if(isEnabled){ updateData(uploadUrl)}
+        const uploadUrl = await uploadImageAsync(result.assets[0].uri);
+       // console.log(uploadUrl)
+       recognizeText(uploadUrl)
+       if(isEnabled){
+        if(factures.length<25){updateData(uploadUrl)}else{alert("vou avez passer limite des scans enregistres vous devez supprimer ou abonne toi pour plusieurs enregistrementss")}
+        }
       
 }catch(e){
   return e
@@ -132,7 +133,7 @@ const uploadUrl = await uploadImageAsync(result.assets[0].uri);
             onPress: async () => {
              
               const { status } = await Location.requestForegroundPermissionsAsync();
-        
+        console.log(status)
        
 if (status == 'granted') {
   console.log('Permission to access location was denied');
@@ -158,7 +159,9 @@ if (status == 'granted') {
                let base64Img =  `data:image/jpg;base64,${result.assets[0].base64}`;
               const uploadUrl = await uploadImageAsync(result.assets[0].uri);
         
-          //    if(isEnabled){ updateData(uploadUrl)}
+              if(isEnabled){
+                if(factures.length<25){updateData(uploadUrl)}else{alert("vou avez passer limite des scans enregistres vous devez supprimer ou abonne toi pour plusieurs enregistrementss")}
+                }
             recognizeText(uploadUrl)
            
               }
@@ -203,8 +206,50 @@ if (status == 'granted') {
 
     
     const recognizeText = async (x) => {
-      console.log("start")
+    
       setload('block')
+
+      const url = 'https://ocr-extract-text.p.rapidapi.com/ocr?url='+x;
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'beea202376mshe4c6be4c51640bcp1ff648jsn02d760a55e42',
+          'X-RapidAPI-Host': 'ocr-extract-text.p.rapidapi.com'
+        }
+      };
+      
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log("..........");
+        console.log(result);
+        var resultArray = result.text.split("\n");
+         console.log(resultArray);
+         const outputArray =resultArray.map(str => parseFloat(str.replace(/[^\d.]/g, '')));
+         let newArray = outputArray.filter(value => !isNaN(value));
+         console.log(newArray);
+         const filteredArray = newArray.filter(value => {
+          const decimalPart = (value.toString().split('.')[1] || '').length;
+          return decimalPart < 8;
+        });
+        console.log(filteredArray);
+        const largestNumber = findLargestNumber(filteredArray);
+      //  console.log(largestNumber)
+        
+        if(newArray.length>0 && largestNumber!=undefined){
+          setload('none')
+ navigation.navigate('OcrResult',{prix:largestNumber})
+          }
+        else{
+          setload('none')
+          alert("aucun prix detecte")
+
+
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
     /*  var myHeaders = new Headers();
       myHeaders.append("apikey", "TMlKq85q7lsDOKOrjKgEwShBgHdpuTiP");
       
@@ -216,13 +261,13 @@ if (status == 'granted') {
       
       fetch("https://api.apilayer.com/image_to_text/url?url="+x, requestOptions)
         .then(response => response.text())
-        .then(result =>{ setRecognizedText(JSON.parse(result).all_text)
-      
+        .then(result =>{ //setRecognizedText(JSON.parse(result).all_text)
+          console.log(result)
           const text = JSON.parse(result).annotations;
-        
-         const numbersWithTwoDecimalPlaces = findNumbersWithTwoDecimalPlaces(text);
-          const largestNumber = findLargestNumber(numbersWithTwoDecimalPlaces);
-          if(text!=undefined && largestNumber!=undefined){
+       
+       //  const numbersWithTwoDecimalPlaces = findNumbersWithTwoDecimalPlaces(text);
+     //     const largestNumber = findLargestNumber(numbersWithTwoDecimalPlaces);
+      if(text!=undefined && largestNumber!=undefined){
           setload('none')
  navigation.navigate('OcrResult',{prix:largestNumber})
           }
@@ -232,16 +277,14 @@ if (status == 'granted') {
 
 
         }
-
+        setload('none')
 
         })
         .catch(error => {
-      
+          console.log(error)
         setload('none')
       });
-      
-
-*/
+      */
 
 
 
@@ -249,6 +292,8 @@ if (status == 'granted') {
 
 
 
+
+/** 
 
 
 
@@ -275,7 +320,7 @@ if (status == 'granted') {
     };
 
     // Make a POST request using fetch
-    fetch('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA0kiTA_ejo3BDKvTGLvdJIhpcIsR87ZGs', {
+    fetch('https://vision.googleapis.com/v1/images:annotate?key=40fb7f17e7fb341b2fb98f7b4f6a468204edeb82', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // Specify the content type
@@ -287,7 +332,7 @@ if (status == 'granted') {
       .then(data => {
          var datastring=[];
          if(data.responses[0].textAnnotations!=undefined){
-       
+       console.log(data.responses[0].textAnnotations)
        let textString=data.responses[0].textAnnotations[0].description;
 
        let lines = textString.split('\n');
@@ -298,7 +343,7 @@ let amounts = [];
 // Parcourir chaque ligne du texte
 lines.forEach(line => {
     // Utiliser une expression régulière pour extraire les montants
-    let match = line.match(/[\d\s,]+\.?\d*/);
+    let match = line.match(/[\d\s,]+\.?\d/);
     
     if (match) {
         // Récupérer la correspondance et la convertir en nombre
@@ -337,14 +382,14 @@ lines.forEach(line => {
       })
       .catch(error => {
         setload('none')
-       
+       alert("error")
       });
 
 
 
 
 
-
+*/
 
 
 
@@ -452,7 +497,7 @@ const updateData =async (x) => {
         const itemData = doc.data();
        
         console.log('----------------------')
-        console.log(itemData.factures)
+    
         itemData.factures.map(x=>{
           scans.push(x)
         })
@@ -548,7 +593,7 @@ scans.push(x)
               const itemData = doc.data();
               setFactures(itemData.factures)
               console.log('----------------------')
-              console.log(itemData.factures)
+           
                 })
       
       
@@ -624,7 +669,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 <View style={{width:"100%",display:'flex',flexDirection:'row',alignItems:'center'}}>
-  <Text style={{fontSize:getResponsiveFontSize(16),fontFamily:'PoppinsRegular',color:'black'}}>Enregister les scans</Text>
+  <Text style={{fontSize:getResponsiveFontSize(16),fontFamily:'PoppinsRegular',color:'white'}}>Enregister les scans</Text>
       <Switch
         trackColor={{false: '#767577', true: '#81b0ff'}}
         thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
@@ -658,16 +703,3 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
       )
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

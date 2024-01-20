@@ -57,7 +57,7 @@ export default function Scan({navigation ,route}) {
       };
       
 useEffect(()=>{
-  setload('none')
+  setload('block')
 },[])
 
 
@@ -84,6 +84,7 @@ useEffect(()=>{
               const itemData = doc.data();
               console.log(itemData.factures)
               setImages(itemData.factures)
+              setload('none')
          //     console.log(itemData)
                 })
       

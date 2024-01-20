@@ -647,9 +647,9 @@ setload("block")
     const givenDate = new Date(givenDateString);
 
     if (
-      currentDate.getFullYear() === givenDate.getFullYear() &&
-      currentDate.getMonth() === givenDate.getMonth() &&
-      currentDate.getDate() === givenDate.getDate()
+      currentDate.getFullYear() == givenDate.getFullYear() &&
+      currentDate.getMonth() == givenDate.getMonth() &&
+      currentDate.getDate() == givenDate.getDate()
     ) {
       setModalInitial(true)
     } 
@@ -668,7 +668,6 @@ setload("block")
 useFocusEffect(
   React.useCallback(() => {
 
-  
     
   }, [])
 );
@@ -783,7 +782,7 @@ const showToast=()=>{
 
 <TouchableOpacity onPress={()=>{navigation.navigate("Home")}}>
 <Icon name="home" size={getResponsiveFontSize(29)} color="white" style={{marginLeft:'0%'}}/>
-</TouchableOpacity><Text style={{fontSize:getResponsiveFontSize(23),fontFamily:'PoppinsBold',color:'white',marginLeft:'32.5%'}}>Profile</Text>
+</TouchableOpacity><Text style={{fontSize:getResponsiveFontSize(20),fontFamily:'PoppinsBold',color:'white',marginLeft:'27.5%'}}>Parametre</Text>
 
 </View>
 
@@ -812,7 +811,7 @@ const showToast=()=>{
 
 
 
-<TouchableOpacity style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
+<TouchableOpacity onPress={()=>{navigation.navigate("Transactions")}} style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
   ios: {
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
@@ -827,7 +826,7 @@ const showToast=()=>{
 </TouchableOpacity>
 
 
-<TouchableOpacity style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
+<TouchableOpacity onPress={()=>{navigation.navigate("Wallet")}} style={{height:"20%",borderRadius:getResponsiveFontSize(30),width:getResponsiveFontSize(150),backgroundColor:'white',...Platform.select({
   ios: {
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },

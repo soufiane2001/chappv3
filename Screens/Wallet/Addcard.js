@@ -28,12 +28,12 @@ import Budgets from '../Budgets/Budgets';
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 
 
-function Wallet({navigation,route }) {
+function  Addcard({navigation,route }) {
 
 
     const [componentWidth, setComponentWidth] = React.useState(0);
-    const [payments, setPay] = React.useState([]);
-    const [user, setuser] = React.useState({nom:'',prenom:''});
+    const [transaction, setTran] = React.useState([]);
+    
     const onLayout = event => {
         const { width } = event.nativeEvent.layout;
         setComponentWidth(width);
@@ -50,8 +50,7 @@ function Wallet({navigation,route }) {
 
 
       const fetchItemsFromFirebase =async () => {
-       
-                setload('block')
+  
         const values = await AsyncStorage.getItem('userid');
           
           const docRef = await query(collection(db, "users"),where("id","==",values));
@@ -60,13 +59,19 @@ function Wallet({navigation,route }) {
           querySnapshot.forEach((doc) => {
              
                 const itemData = doc.data();
-               setPay(itemData.payments)
-                setuser({nom:itemData.nom,prenom:itemData.prenom})
-              
-              
-               setload('none')
-              })
+                itemData.depense.map((x)=>{
+                       x.depense.map((y)=>{
+                          todos.push({donne:y,type:x.type,photo:x.photo})
+                       })
 
+                })
+                
+         
+            
+            
+                  })
+console.log(todos)
+             setTran(todos)
         }
   
   
@@ -78,12 +83,155 @@ function Wallet({navigation,route }) {
         }, [])
       );
 
-      const [loads, setload] = React.useState("none");
+   var   _onChange = (form) =>  {
+    
+    console.log(form)
+setFormData({...formData,number:form.values.number,cvc:form.values.cvc,expiry:form.values.expiry,type:form.values.type,valid:form.valid})
 
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const updateData =async () => {
+    var py=[];
+    setload('block')
+if(formData.valid==true){
+  
+  
+    
+    
+    
+    const values= await AsyncStorage.getItem("userid");
+    const docRef = await query(collection(db, "users"),where("id","==",values));
+    const querySnapshot=await getDocs(docRef)
+    let todos=[]
+    querySnapshot.forEach(async(doc) => {
+     const itemData = doc.data();
+
+     const item = {
+       id: itemData.id,
+       nom: itemData.nom,
+       prenom: itemData.prenom, 
+       secteur: itemData.secteur, 
+       ville: itemData.ville,
+       budget: itemData.budget,  
+       budgetinitial: itemData.budgetinitial,  
+       depense: itemData.depense, 
+       fonction: itemData.fonction, 
+       Datenaissance:itemData.Datenaissance,
+       dateinscription:itemData.dateinscription,
+       factures:itemData.factures,
+       payments:itemData.payments,
+    
+    };
+     todos.push(item)
+    py=itemData.payments; 
+       py.push(formData)
+    });
+  
+  
+    
+    
+    
+    
+    
+    const q = query(collection(db, "users"), where("id", '==',values));
+    const querySnapshots=await getDocs(q);
+   
+        querySnapshots.forEach((doc) => {
+        
+          const docRef = doc.ref;
+          updateDoc(docRef, { 
+            id: values,
+            nom: todos[0].nom,
+            prenom: todos[0].prenom, 
+            secteur: todos[0].secteur, 
+            ville: todos[0].ville,
+            budget: todos[0].budget,  
+            depense: todos[0].depense, 
+            fonction:  todos[0].fonction, 
+            Datenaissance: todos[0].Datenaissance,
+            dateinscription:todos[0].dateinscription,
+            budgetinitial: todos[0].budgetinitial,
+            factures:todos[0].factures,
+            payments:py
+          }
+            
+            )
+            .then(() => {
+        
+           navigation.navigate("Wallet")
+              fetchItemsFromFirebase()
+              setload('none')
+             
+            })
+            .catch((error) => {
+                setload('none')
+              
+            });
+        });
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+      }
+    
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   const inputElement = useRef();
+   const [formData, setFormData] = useState({});
+
+   const [loads, setload] = React.useState("none");
 
 return(
     <View onLayout={onLayout} style={{flex:1}}>
-    <View style={{display:loads,backgroundColor:'black',opacity:0.65,position:'absolute',zIndex:1111,top:"0%",left:'0%',width:'100%',height:"100%"}}>
+      <View style={{display:loads,backgroundColor:'black',opacity:0.65,position:'absolute',zIndex:1111,top:"0%",left:'0%',width:'100%',height:"100%"}}>
 <View style={{
 display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',height:'100%',width:"100%"
 }}>
@@ -91,13 +239,12 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
   <ActivityIndicator size="large" color="#007AFF" />
 
 </View>
-</View>     
-
-
- <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'100%',paddingVertical:"1%",display:'flex'}}
+</View> 
+  <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'100%',paddingVertical:"1%",display:'flex'}}
       colors={['#FF5733', '#FFC300']}
     
     >
+ 
 
 
        <View style={{paddingHorizontal:'3%',paddingVertical:"4%",display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
@@ -107,48 +254,14 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
            </TouchableOpacity>
         <Text  style={{fontSize:getResponsiveFontSize(20),fontFamily:'PoppinsMedium',color:'#F1EFEB'}}>Payment/wallet</Text>
 
-        <TouchableOpacity onPress={async()=>{
-            navigation.navigate('Addcard')}}>
-            <Ionicons name="add" size={getResponsiveFontSize(26)} color="white" />
-           </TouchableOpacity>
             </View>
 
- 
-<ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(20)}} >
-         
-         {payments.map((x)=>{return(
-      <View style={styles.container}>
-      <View style={styles.card}>
-        <Image
-          source={{uri:'https://www.paymentscardsandmobile.com/wp-content/uploads/2021/11/visa-mastercard-logos.jpg'}}
-          style={styles.logo}
-        />
-        <Text style={styles.cardNumber}>{x.number}</Text>
-        <View style={styles.row}>
-          <Text style={styles.label}>Cardholder Name</Text>
-          <Text style={styles.cardHolder}>{user.nom+" "+user.prenom}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Expiry Date</Text>
-          <Text style={styles.expiryDate}>{x.expiry}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>CVC</Text>
-          <Text style={styles.cvc}>{x.cvc}</Text>
-        </View>
-      </View>
-    </View>
 
 
-)})}
-   
-
-
-
-
-</ScrollView>
-
-
+   <CreditCardInput  onChange={_onChange}  />
+   <TouchableOpacity  onPress={()=>{updateData()}}  style={{width:"25%",marginBottom:'2%',marginTop:'5%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',borderRadius:25}}>
+         <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>valider</Text>
+</TouchableOpacity>
 </LinearGradient>
 
 
@@ -206,4 +319,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Wallet;
+export default Addcard;

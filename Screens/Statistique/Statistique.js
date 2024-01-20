@@ -65,7 +65,7 @@ function Statistique({navigation,route }) {
 
 
     const filterdate = [
-      { key: 1, label: 'Semaines' },
+   
       { key: 2, label: 'mois' },
       { key: 3, label: 'annees' },
 
@@ -237,18 +237,19 @@ querySnapshot.forEach(async(doc) => {
 
   var datemois=[]
   var datm=new Date (itemData.dateinscription)
+  var datmm=new Date (itemData.dateinscription)
   datemois.push(new Date (itemData.dateinscription))
 
 
   years.push(new Date (itemData.dateinscription))
-  do{
-         
-   // console.log(datm)
-    years.push(new Date(datm.setDate(datm.getDate()+365)))
-    }while(datm<new Date())
+ 
+  while(datm.getFullYear()<new Date().getFullYear()){
+       years.push(new Date(datm.setDate(datm.getDate()+365)))
+    }
 
 console.log("++++++++++++++++++++++++++++++++++++") 
-  //  console.log(years[1].getFullYear())
+console.log(years) 
+//  console.log(years[1].getFullYear())
   datemois=[0,1,2,3,4,5,6,7,8,9,10,11];
 
 var mnt=0;
@@ -294,7 +295,7 @@ mnt=0;
 
 //yearssmois.push(stock)
 
-yearssmois.push(stock)
+yearssmois.push({stock:stock,year:years[j].getFullYear()})
 }
 
 //   console.log(stock)
@@ -685,7 +686,7 @@ else{
 
 
 
-  
+        const mois_courts = ["jan", "fév", "mar", "avr", "mai", "jun", "jul", "aoû", "sep", "oct", "nov", "déc"];
   
   
 const formatDate=(inputDate)=> {
@@ -882,18 +883,6 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 </View>
 
 
@@ -974,11 +963,13 @@ statistique2.length > 0 && (
     
     <View style={{display:'block'}}>
       
-    {  statistique2.map((x,key)=>{
+    {  statistique2.reverse().map((x,key)=>{
   return(
-<Animated.View style={{display:'block',opacity: fadeAnim,flexDirection: 'row',height:getResponsiveFontSize(400),width:"98%",marginTop:'15%'}} >
+    <>
+    <Text style={{fontSize:getResponsiveFontSize(18.5),textAlign:'center',fontFamily:"PoppinsRegular",color:'#DA4521',marginTop:'8%'}}>{x.year}</Text>
+<Animated.View style={{display:'block',opacity: fadeAnim,flexDirection: 'row',height:getResponsiveFontSize(400),width:"98%",marginTop:'5%'}} >
 <YAxis
-  data={x.map(item => item.montant)}
+  data={x.stock.map(item => item.montant)}
   contentInset={{ top: 10, bottom: 20 }}
   svg={{ fill: 'grey', fontSize: getResponsiveFontSize(12) }}
   numberOfTicks={5}
@@ -986,7 +977,7 @@ statistique2.length > 0 && (
 <View style={{ flex: 1, marginLeft: 15 }}>
   <BarChart
     style={{ flex: 1 }}
-    data={x.map(item => item.montant)}
+    data={x.stock.map(item => item.montant)}
     svg={{ fill: 'url(#gradient)' }}
     contentInset={{ top: 20, bottom: 10 }}
   >
@@ -994,130 +985,19 @@ statistique2.length > 0 && (
   </BarChart>
   <XAxis
             style={{ marginHorizontal: 2,marginVertical:5 }}
-            data={x.map((_, index) => index)}
-            formatLabel={(value, index) => x[index].mois}
-            contentInset={{ left: 5, right: 10 }}
-            svg={{ fontSize: 15, fill: 'black' }}
+            data={x.stock.map((_, index) => index)}
+            formatLabel={(value, index) => mois_courts[x.stock[index].mois]}
+            contentInset={{ left:getResponsiveFontSize(9), right: getResponsiveFontSize(9) }}
+            svg={{ fontSize: getResponsiveFontSize(), fill: 'black' }}
           />
 </View>
 </Animated.View>
-  )
+ </> )
 })
 }
 </View>
 )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{
-
-statistique3.length > 0 && (
-<Animated.View style={{display:'block',opacity: fadeAnim,flexDirection: 'row',height:getResponsiveFontSize(400),width:"98%",marginTop:'1.5%'}} >
-<YAxis
-  data={statistique3.map(item =>parseFloat(item.montant))}
-  contentInset={{ top: 10, bottom: 20 }}
-  svg={{ fill: 'grey', fontSize: getResponsiveFontSize(12) }}
-  numberOfTicks={5}
-/>
-<View style={{ flex: 1, marginLeft: 25,bottom:0 }}>
-  <BarChart
-    style={{ flex: 1 }}
-    data={statistique3.map(item => parseFloat(item.montant))}
-    svg={{ fill: 'url(#gradient)' }}
-    contentInset={{ top: 20, bottom: 10 }}
-  >
-    <Gradient />
-  </BarChart>
-  <XAxis
-            style={{ marginHorizontal: 50,marginVertical:5 }}
-            data={statistique3.map((_, index) => index)}
-            formatLabel={(value, index) => statistique3[index].date}
-            contentInset={{ left: 15, right: 15 ,top:25,bottom:25}}
-            svg={{ fontSize: getResponsiveFontSize(12), fill: 'black' }}
-          />
-</View>
-</Animated.View>
-
-)/*statistique3.map((x,key)=>{
-
-
-
-
-
-
-
-
-return(
-
-<View style={{backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'4.5%',borderRadius:getResponsiveFontSize(15),marginTop:'1.5%',
-display:'flex',justifyContent:'space-between',borderBottomWidth:1,borderColor:'#EBEAEA'
-,marginBottom:'1%'
-}}>
-    
-
-    
-
-
-    
-    <Text style={{color:'#545456',fontSize:getResponsiveFontSize(15),marginTop:'1%',fontFamily:'PoppinsRegular'}}>annee {x.date}        </Text>
-<Text style={{color:'black',fontSize:getResponsiveFontSize(17),fontFamily:'PoppinsSemiBold',marginTop:'2.5%',textAlign:'center'}}>{parseFloat(x.montant).toFixed(2)} DH</Text>
-
-
-
-{(x.montant>0 && statistique3.length>1) &&
-<View style={{width:'100%',marginTop:'2%',paddingVertical:getResponsiveFontSize(0.15),borderWidth:1,borderRadius:getResponsiveFontSize(5),borderColor:'#F6F6F6'}}>
-  
-  <View style={{backgroundColor:x.montant/sommedepense2*100 <30 ?'#09D812' :x.montant/sommedepense3*100 <80 ? '#278AF3' : '#FF1401',borderRadius:getResponsiveFontSize(5),width:`${((x.montant/sommedepense3)*100)}%`}}>
-    <Text style={{fontSize:getResponsiveFontSize(14),color:x.montant/sommedepense3*100 <30 ?'#09D812' :x.montant/sommedepense3*100 <80 ? '#278AF3' : '#FF1401'}}>.</Text>
-  </View>
-
-</View>     
-
-}
-
-
-
-</View>
-
-
-
-
-)})
-
-*/
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
