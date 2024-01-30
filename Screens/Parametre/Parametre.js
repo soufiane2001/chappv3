@@ -739,7 +739,7 @@ const showToast=()=>{
 
   return (
 <LinearGradient ref={myRef} onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%"}}
-      colors={['#FF5733', '#FFC300', '#36A2EB']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
     
     >
 

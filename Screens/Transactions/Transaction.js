@@ -25,7 +25,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Barometre from '../Barometre/Barometre';
 import Depenses from '../Depenses/Depenses';
 import Budgets from '../Budgets/Budgets';
-
+import { FontAwesome6 } from '@expo/vector-icons';
 
 
 function Transactions({navigation,route }) {
@@ -33,6 +33,7 @@ function Transactions({navigation,route }) {
 
     const [componentWidth, setComponentWidth] = React.useState(0);
     const [transaction, setTran] = React.useState([]);
+    const [depense, setDepense] = React.useState([]);
     
     const onLayout = event => {
         const { width } = event.nativeEvent.layout;
@@ -56,23 +57,41 @@ function Transactions({navigation,route }) {
           const docRef = await query(collection(db, "users"),where("id","==",values));
           const querySnapshot=await getDocs(docRef)
           let todos=[]
+          console.log("-----------------")
           querySnapshot.forEach((doc) => {
              
                 const itemData = doc.data();
+               /* const item = {
+                  depense: itemData.depense, 
+                }*/
                 itemData.depense.map((x)=>{
                        x.depense.map((y)=>{
-                          todos.push({donne:y,type:x.type,photo:x.photo})
-                       })
-
+                        
+                       todos.push({donne:y,type:x.type,photo:x.photo})
+                       }) 
+                    
                 })
                 
-         
-            
-            
+               // todos.push(item)
+               setDepense(itemData.depense)            
+              
                   })
-console.log(todos)
+            //console.log(todos[0].depense)
              setTran(todos)
-        }
+
+   
+             /*********************************************************** */
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+            }
   
   
       useFocusEffect(
@@ -85,10 +104,68 @@ console.log(todos)
 
 
 
+
+
+
+const anuller=async(id,type)=>{
+//alert(id+type)
+console.log("+++++++++++++++++++++++++++++++")
+var updateitems=depense.map((x)=>{
+  if(x.type==type){
+var uu= x.depense.filter(y=>y.id!==id);
+return {depense:uu,montant:x.montant,photo:x.photo,type:x.type};
+
+}
+return x;
+
+
+})
+
+
+console.log(updateitems)
+
+const values = await AsyncStorage.getItem('userid');
+
+const q = query(collection(db, "users"), where("id", '==',values));
+const querySnapshots=await getDocs(q);
+
+    querySnapshots.forEach((doc) => {
+    
+      const docRef = doc.ref;
+      updateDoc(docRef, { 
+       
+        depense: updateitems, 
+  
+      
+      }
+        
+        )
+        .then(() => {
+          fetchItemsFromFirebase()
+         
+        })
+        .catch((error) => {
+          setload("none")
+          
+        });
+      })
+
+
+
+
+
+
+
+}
+
+
+
+
+
 return(
     <View onLayout={onLayout} style={{flex:1}}>
         <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'12%',paddingVertical:"1%",display:'flex',justifyContent:'flex-end'}}
-      colors={['#FF5733', '#FFC300']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
     
     >
     <View style={{paddingHorizontal:'3%',paddingVertical:"4%",display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
@@ -108,7 +185,7 @@ return(
 
 {transaction.map((x)=>{return(
 
-<View style={{marginTop:'4%',backgroundColor:'white',width:'100%',paddingHorizontal:'2.5%',paddingVertical:'2.25%',borderRadius:getResponsiveFontSize(15),...Platform.select({
+<View style={{marginTop:'4%',backgroundColor:'white',width:'100%',paddingHorizontal:'2.5%',paddingVertical:'2.25%',borderRadius:getResponsiveFontSize(5),...Platform.select({
    ios: {
      shadowColor: 'black',
      shadowOffset: { width: 0, height: 2 },
@@ -118,15 +195,21 @@ return(
    android: {
      elevation:6,
    },})}}>
+ <TouchableOpacity style={{display:'flex',flexDirection:'row',alignItems:'center'}} onPress={()=>{anuller(x.donne.id,x.type)}}>
+<Image source={{uri:"https://cdn-icons-png.freepik.com/512/3807/3807871.png"}} style={{marginTop:'0.5%',width:getResponsiveFontSize(20),height:getResponsiveFontSize(20),resizeMode:'contain',borderRadius:50}} />
+<Text  style={{fontSize:getResponsiveFontSize(10),fontFamily:'PoppinsMedium',color:'red',marginLeft:'2%'}}>Anuller</Text>
+</TouchableOpacity>
 
 <View style={{marginTop:'0%',display:'flex',flexDirection:'row',alignItems:'center'}}>
+ 
+
 
 <View style={{width:'80%'}}>
 <Text  style={{fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'#A49F9E',marginLeft:'5%'}}> {x.donne.date} {x.donne.time} </Text>
 <Text  style={{fontSize:getResponsiveFontSize(22),fontFamily:'PoppinsMedium',color:'#525252',marginLeft:'5%',marginTop:'1%'}}> {x.donne.montant} dh </Text>
 </View>
 
-{x.donne.type!="manuelle" ? (<View>
+{x.donne.type!="manuelle" ? (<View >
 <Image source={{uri:"https://cdn.iconscout.com/icon/free/png-256/free-qr-scan-3582609-3012544.png?f=webp"}} style={{marginTop:'0.5%',width:getResponsiveFontSize(50),height:getResponsiveFontSize(70),resizeMode:'contain',borderRadius:50}} />
 </View>) :(<View>
 <Image source={{uri:"https://cdn-icons-png.flaticon.com/512/8038/8038612.png"}} style={{marginTop:'0.5%',width:getResponsiveFontSize(50),height:getResponsiveFontSize(70),resizeMode:'contain',borderRadius:50}} />

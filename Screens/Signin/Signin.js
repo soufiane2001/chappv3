@@ -221,9 +221,9 @@ else{
 
 
 
-                <Image source={require('../../assets/logo.png')} style={{width:"14%",height:'10%',marginLeft:'85%',resizeMode:'contain'}} />
+<Image source={require('../../assets/expensia.png')} style={{width:getResponsiveFontSize(100),height:getResponsiveFontSize(30),marginLeft:'65%',resizeMode:'stretch'}} />
                 
-                <Text style={{fontSize:getResponsiveFontSize(26),fontFamily:'PoppinsSemiBold'}}>Créer un compte</Text>
+                <Text style={{fontSize:getResponsiveFontSize(26),fontFamily:'PoppinsSemiBold',marginTop:'5%'}}>Créer un compte</Text>
 
 
 

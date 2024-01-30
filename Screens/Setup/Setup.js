@@ -177,41 +177,66 @@ function Setup({navigation ,route}) {
       ]
 
   
-      
-      const fonctions = [
-        { key: 1, label: 'Architecte' },
-        { key: 2, label: 'Avocat/avocate' },
-        { key: 3, label: 'Analyste de données' },
-        { key: 4, label: 'Analyste financier' },
-        { key: 5, label: 'Archiviste' },
-        { key: 6, label: 'Chirurgien/chirurgienne' },
-        { key: 7, label: 'Comptable' },
-        { key: 8, label: 'Consultant en gestion' },
-        { key: 9, label: 'Développeur web' },
-        { key: 10, label: 'Designer graphique' },
-        { key: 11, label: 'Enseignant' },
-        { key: 12, label: 'Infirmier/infirmière' },
-        { key: 13, label: 'Ingénieur civil' },
-        { key: 14, label: 'Ingénieur logiciel' },
-        { key: 15, label: 'Journaliste' },
-        { key: 16, label: 'Marketing Manager' },
-        { key: 17, label: 'Médecin' },
-        { key: 18, label: 'Photographe' },
-        { key: 19, label: 'Plombier' },
-        { key: 20, label: 'Psychologue' },
-        { key: 21, label: 'Professeur d université' },
-        { key: 22, label: 'Responsable des ressources humaines' },
-        { key: 23, label: 'Technicien informatique' },
-        { key: 24, label: 'Traducteur/traductrice' },
-        { key: 25, label: 'Cuisinier/cuisinière' },
-        { key: 26, label: 'Électricien/électricienne' },
-        { key: 27, label: 'Infirmier/infirmière' },
-        { key: 28, label: 'Pharmacien/pharmacienne' },
-        { key: 29, label: 'Pilote d avion' },
-        { key: 30, label: "Autre" },
+      const fonctionspublic = [
+        { key: 1, label: 'Administrateur public' },
+        { key: 2, label: 'Secrétaire administratif' },
+        { key: 3, label: 'Responsable des affaires  publiques' },
+        { key: 4, label: 'Policier' },
+        { key: 5, label: 'Agent de sécurité publique' },
+        { key: 6, label: 'Agent pénitentiaire' },
+        { key: 7, label: 'Garde forestier' },
+        { key: 8, label: 'Enseignant' },
+        { key: 9, label: 'Directeur école publique' },
+        { key: 10, label: 'Inspecteur académique' },
+        { key: 11, label: 'Chercheur universitaire' },
+        { key: 12, label: 'Médecin de santé publique' },
+        { key: 13, label: 'Infirmier/infirmière en santé publique' },
+        { key: 14, label: 'Épidemiologiste' },
+        { key: 15, label: 'Agent de santé environnementale' },
+        { key: 16, label: 'Travailleur social' },
+        { key: 17, label: 'Psychologue clinicien' },
+        { key: 18, label: 'Coordinateur de programmes sociaux' },
+        { key: 19, label: 'Agent de développement communautaire' },
+        { key: 20, label: 'Avocat de l État' },
+        { key: 21, label: 'Expert-comptable public' },
+        { key: 22, label: 'Médecin consultant pour les services publics' },
+        { key: 23, label: 'Architecte travaillant sur des projets gouvernementaux' },
+        { key: 24, label: "Autre" },
+      ]
 
-      ];
-      
+      const fonctionsprive = [
+        { key: 1, label: 'PDG (Chief Executive Officer -CEO) ' },
+        { key: 2, label: 'Directeur financier (CFO)' },
+        { key: 3, label: 'Directeur des opérations (COO)' },
+        { key: 4, label: 'Directeur des ressources humaines (HRD)' },
+        { key: 5, label: 'Ingénieur en chef' },
+        { key: 6, label: 'Chercheur principal' },
+        { key: 7, label: 'Développeur de produits' },
+        { key: 8, label: 'Technicien en R&D' },
+        { key: 9, label: 'Directeur commercial' },
+        { key: 10, label: 'Responsable marketing' },
+        { key: 11, label: 'Représentant des ventes' },
+        { key: 12, label: 'Spécialiste en marketing digital' },
+        { key: 13, label: 'Analyste financier' },
+        { key: 14, label: 'Gestionnaire de portefeuille' },
+        { key: 15, label: 'Contrôleur financier' },
+        { key: 16, label: 'Conseiller fiscal' },
+        { key: 17, label: 'Responsable formation' },
+        { key: 18, label: 'Recruteur' },
+        { key: 19, label: 'Gestionnaire des avantages sociaux' },
+        { key: 20, label: 'Spécialiste en développement organisationnel' },
+        { key: 21, label: 'Avocat indépendant' },
+        { key: 22, label: 'Expert-comptable consultant' },
+        { key: 23, label: 'Médecin exerçant en cabinet privé' },
+        { key: 24, label: "Architecte travaillant sur des projets privés ou commerciaux" },
+        { key: 25, label: "Autre" },
+      ]
+
+
+
+
+
+      const [fonctions,setFonctions]=useState([]);
 
 
 
@@ -266,6 +291,12 @@ function Setup({navigation ,route}) {
 
       const handleOptionChange3 = (option) => {
         setSecteur(option.label);
+        if(option.label=="Public"){
+ setFonctions(fonctionspublic)
+        }
+        else{
+          setFonctions(fonctionsprive)
+        }
       };
 
 
@@ -392,7 +423,7 @@ const onChange = (event, selectedDate) => {
 
   return (
     <LinearGradient  onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%"}}
-      colors={['#FF5733', '#FFC300', '#36A2EB']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
      >
 
 
@@ -421,7 +452,7 @@ const onChange = (event, selectedDate) => {
               <TextInput 
                 onChangeText={setNom}
                 value={nom}
-                style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.5%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948', }}
+                style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.5%',paddingLeft:'5%',borderRadius:5,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948', }}
                 placeholder="Nom"
                 placeholderTextColor="#BCBCBC" 
                 />
@@ -431,7 +462,7 @@ const onChange = (event, selectedDate) => {
                <TextInput 
                   onChangeText={setPrenom}
                   value={prenom}
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
+                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:5,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
                   placeholder="Prenom"
                   placeholderTextColor="#BCBCBC" 
                   />
@@ -440,7 +471,7 @@ const onChange = (event, selectedDate) => {
 <TextInput 
                   onChangeText={setCity}
                   value={city}
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
+                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:5,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
                   placeholder="Ville"
                   placeholderTextColor="#BCBCBC" 
                   />
@@ -449,7 +480,7 @@ const onChange = (event, selectedDate) => {
                   onChangeText={setTel}
                   value={telephone}
                   keyboardType="numeric"
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
+                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:5,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
                   placeholder="telephone"
                   placeholderTextColor="#BCBCBC" 
                   />
@@ -462,7 +493,7 @@ const onChange = (event, selectedDate) => {
                    data={secteurs}
                    initValue="Select Genre"
                    onChange={handleOptionChange3}
-                   style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
+                   style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:5}}
                  >
       
       
@@ -481,10 +512,11 @@ const onChange = (event, selectedDate) => {
 
 
               <ModalSelector
+                disabled={secteur.length<1 ? true :false}
                  data={fonctions}
                  initValue="Select Genre"
                  onChange={handleOptionChange2}
-                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
+                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:5}}
                 >
        
                   <TouchableOpacity>
@@ -500,7 +532,7 @@ const onChange = (event, selectedDate) => {
 
 
           <TouchableOpacity onPress={()=>{toggleCalendar()}}>
-               <View style={{position:'relative',zIndex:4564,display:'flex',flexDirection:'row',alignItems:'center',marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}>
+               <View style={{position:'relative',zIndex:4564,display:'flex',flexDirection:'row',alignItems:'center',marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:5}}>
                     <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#BCBCBC'}}>{Calendrier || 'Datenaissance'}</Text>
      
                   <Icon name="calendar" size={24} color="black" style={{marginLeft:'40%'}}/>
@@ -551,7 +583,7 @@ const onChange = (event, selectedDate) => {
 
 
 
-          <TouchableOpacity disabled={complete==100 ?false :true}  onPress={()=>{handleOptions()}}  style={{width:"25%",marginTop:'7%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'1%',paddingVertical:'2%',borderRadius:25}}>
+          <TouchableOpacity disabled={complete==100 ?false :true}  onPress={()=>{handleOptions()}}  style={{width:"25%",marginTop:'7%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'1%',paddingVertical:'2%',borderRadius:5}}>
               <Text style={{fontSize:getResponsiveFontSize(13),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>SUIVANT</Text>
           </TouchableOpacity>
 

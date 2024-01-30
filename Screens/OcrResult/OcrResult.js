@@ -207,7 +207,7 @@ setload('block')
 
     if ((key+1) == selectenum) {
      
-        return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString,time:formattedTime,type:'scan'}] };
+        return { ...item, depense: [...item.depense,{id:Math.floor(Math.random()*1000000000),montant:convertedNumber,date:dateString,time:formattedTime,type:'scan'}] };
       }
     
       return item;
@@ -378,7 +378,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 </View>
 </View>
 <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'50%',paddingVertical:"3%",display:'flex',justifyContent:'space-around'}}
-      colors={['#FF5733', '#FFC300', '#FFC500']} >
+      colors={['#528f76', '#5EC309', '#5CCA00']} >
 
 
 
@@ -397,7 +397,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                                                    },
                                              android: {
                                                           elevation:10,
-                                             },}),backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'7%',borderRadius:15}}>
+                                             },}),backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'7%',borderRadius:5}}>
 <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems: 'center',backgroundColor:'white'}}>
 
 <View>
@@ -461,7 +461,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(40),height:getResponsiveFon
                  data={fonctions}
                  initValue="Select Genre"
                  onChange={handleOptionChange2}
-                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'100%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
+                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'100%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",borderWidth:1,borderColor:'#F7F7F7',borderRadius:5}}
                 >
        
                   <TouchableOpacity>
@@ -471,7 +471,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(40),height:getResponsiveFon
                </ModalSelector>
 </View>
 
-               <TouchableOpacity onPress={()=>{updateData()}} style={{marginLeft:"65%",backgroundColor:"red",paddingHorizontal:"3%",paddingVertical:"2%",width:"35%",borderRadius:getResponsiveFontSize(15)}}>
+               <TouchableOpacity onPress={()=>{updateData()}} style={{marginLeft:"65%",backgroundColor:"red",paddingHorizontal:"3%",paddingVertical:"2%",width:"35%",borderRadius:getResponsiveFontSize(5)}}>
                     <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'white',textAlign:"center"}} >Enregistrer</Text>
                   </TouchableOpacity>
      

@@ -815,7 +815,7 @@ const showit=()=>{
 
 <ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(25)}}>
 
-<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'0%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"1%",borderRadius:25}}>
+<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'0%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"1%",borderRadius:5}}>
          <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>Modifier</Text>
 </TouchableOpacity>
 
@@ -854,7 +854,7 @@ const showit=()=>{
 
 {budgets.length>0 && budgets.map((x,index)=>
 
-<View key={index}  style={{backgroundColor:'white',paddingHorizontal:'0%',paddingVertical:'5.5%',borderRadius:15,borderWidth:1,borderColor:'#F7F7F7',marginTop:'4%',
+<View key={index}  style={{backgroundColor:'white',paddingHorizontal:'0%',paddingVertical:'5.5%',borderRadius:5,borderWidth:1,borderColor:'#F7F7F7',marginTop:'4%',
 display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',width:'97%',marginLeft:'1.2%',
 ...Platform.select({
                  ios: {
@@ -876,7 +876,7 @@ display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'cen
 <Text style={{width:'25%',fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'black',textAlign:'center',marginLeft:'0%'}}>{x.type}</Text>
 
 
-<TouchableOpacity onPress={()=>{toggleBudgetm(index)}}  style={{backgroundColor:'#4816FF',width:'28%',color:'white',paddingHorizontal:'1%',borderRadius:12,
+<TouchableOpacity onPress={()=>{toggleBudgetm(index)}}  style={{backgroundColor:'#4816FF',width:'28%',color:'white',paddingHorizontal:'1%',borderRadius:5,
    alignSelf:'flex-start',marginRight:'4%',marginTop:'2%',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center'
      }}>
 
@@ -885,7 +885,7 @@ display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'cen
 <Text style={{fontSize:getResponsiveFontSize(13.5),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',display:'flex',marginTop:'2%'}}>{x.revenu} dh</Text></TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{toggleBudgetm(index)}} style={{
-backgroundColor:'#40DC01',color:'white',paddingHorizontal:'2.5%',paddingVertical:'1%',borderRadius:10,display:'flex',flexDirection:'row',
+backgroundColor:'#40DC01',color:'white',paddingHorizontal:'2.5%',paddingVertical:'1%',borderRadius:5,display:'flex',flexDirection:'row',
 alignItems:'center',alignSelf:'flex-start',marginTop:'2%',marginRight:'2%'
 }}>
   <Text style={{fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',

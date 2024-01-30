@@ -460,7 +460,7 @@ setTextInputValue('')
 
 
       <LinearGradient  onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%"}}
-      colors={['#FF5733', '#FFC300', '#36A2EB']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
     
        >
 
@@ -483,7 +483,7 @@ setTextInputValue('')
 
 
 
-                <Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'black',textAlign:'center'}}>Quels sont vos revenus …Shut c’est confidentiel !</Text>
+                <Text style={{fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'black',textAlign:'center'}}>Quels sont vos revenus …Shut c’est confidentiel !</Text>
 
 
 
@@ -578,7 +578,7 @@ setTextInputValue('')
   {budgets.map((x,index)=>
 
 
-            <View key={index} style={{backgroundColor:'white',paddingHorizontal:'0%',paddingVertical:'5.5%',borderRadius:15,borderWidth:1,borderColor:'#F7F7F7',marginTop:'4%',
+            <View key={index} style={{backgroundColor:'white',paddingHorizontal:'0%',paddingVertical:'5.5%',borderRadius:5,borderWidth:1,borderColor:'#F7F7F7',marginTop:'4%',
                           display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',width:'93%',marginLeft:'3.2%',
                          ...Platform.select({
                                            ios: {
@@ -599,7 +599,7 @@ setTextInputValue('')
          <Text style={{width:'40%',fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'black',textAlign:'center',marginLeft:'0%'}}>{x.type}</Text>
 
 
-                <TouchableOpacity onPress={()=>{toggleModal(index)}} style={{backgroundColor:'#4816FF',width:'29%',color:'white',paddingHorizontal:'1%',borderRadius:12,
+                <TouchableOpacity onPress={()=>{toggleModal(index)}} style={{backgroundColor:'#4816FF',width:'29%',color:'white',paddingHorizontal:'1%',borderRadius:5,
                              alignSelf:'flex-start',marginRight:'4%',marginTop:'2%',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center'
                                }}>
 
@@ -642,7 +642,7 @@ setTextInputValue('')
     
 
 
-<TouchableOpacity onPress={()=>{handleOptions()}}  style={{width:"25%",marginBottom:'2%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'1.75%',borderRadius:25}}>
+<TouchableOpacity onPress={()=>{handleOptions()}}  style={{width:"25%",marginBottom:'2%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'1.75%',borderRadius:5}}>
          <Text style={{fontSize:getResponsiveFontSize(13),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>SUIVANT</Text>
 </TouchableOpacity>
 

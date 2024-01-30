@@ -227,7 +227,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
        
         <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'100%',paddingVertical:"3%"}}
-         colors={['#FF5733', '#FFC300', '#FFC500']}
+         colors={['#528f76', '#5EC309', '#5CCA00']}
        
        >
 

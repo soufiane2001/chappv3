@@ -241,7 +241,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 </View>
 </View> 
   <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'100%',paddingVertical:"1%",display:'flex'}}
-      colors={['#FF5733', '#FFC300']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
     
     >
  
@@ -259,7 +259,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
    <CreditCardInput  onChange={_onChange}  />
-   <TouchableOpacity  onPress={()=>{updateData()}}  style={{width:"25%",marginBottom:'2%',marginTop:'5%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',borderRadius:25}}>
+   <TouchableOpacity  onPress={()=>{updateData()}}  style={{width:"25%",marginBottom:'2%',marginTop:'5%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',borderRadius:5}}>
          <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>valider</Text>
 </TouchableOpacity>
 </LinearGradient>

@@ -185,7 +185,7 @@ let convertedNumber = parseFloat(stringWithPeriod);
             if (key == route.params.num) {
               //  alert(key)
                // Update the name property of the matched item
-                return { ...item, depense: [...item.depense,{montant:convertedNumber,date:dateString,time:formattedTime,type:'manuelle'}] };
+                return { ...item, depense: [...item.depense,{id:Math.floor(Math.random()*1000000000),montant:convertedNumber,date:dateString,time:formattedTime,type:'manuelle'}] };
               }
               // If the id doesn't match, return the original item
               return item;
@@ -334,7 +334,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2.5%",display:'flex',height:'40%',justifyContent:'space-around',paddingVertical:"1.5%"}}
-          colors={['#FF5733', '#FFC300', '#FFC500']}>
+          colors={['#528f76', '#5EC309', '#5CCA00']}>
 
 
 
@@ -357,7 +357,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                                                    },
                                              android: {
                                                           elevation:10,
-                                             },}),backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'7%',borderRadius:15}}>
+                                             },}),backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'7%',borderRadius:5}}>
             
             <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems: 'center',}}>
 
@@ -428,7 +428,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(40),height:getResponsiveFon
           <TouchableOpacity onPress={()=>{ updateData() }} style={{backgroundColor:'red',
  
           paddingVertical:getResponsiveFontSize(5)
-          ,borderRadius:25,
+          ,borderRadius:5,
     marginTop:'6%',width:'22%',marginLeft:'68%'
         }}>
             <Text style={{color:'white',fontSize:getResponsiveFontSize(14),textAlign:'center',fontFamily:"PoppinsRegular",marginTop:'4%'}}>Valider</Text>

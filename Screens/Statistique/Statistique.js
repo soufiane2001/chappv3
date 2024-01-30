@@ -760,7 +760,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 </View>
 </View>
 
-<View style={{display:'flex',justifyContent:'space-between',backgroundColor:'#FF8A22',paddingHorizontal:"5%",paddingVertical:'2%',height:'26%'}}
+<View style={{display:'flex',justifyContent:'space-between',backgroundColor: '#5CCA00',paddingHorizontal:"5%",paddingVertical:'2%',height:'26%'}}
     >
 
 
@@ -791,7 +791,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                     data={filterdepense}
                     initValue="Select Type"
                     onChange={handleOptionChange2}
-                    style={{backgroundColor:'#0532A3',marginLeft:'2.5%',borderRadius:30,
+                    style={{backgroundColor:'black',marginLeft:'2.5%',borderRadius:5,
                     width:'42%',paddingVertical:'1.15%',
                     display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'
                   }}
@@ -835,7 +835,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                     data={filterdate}
                     initValue="Select Type"
                     onChange={handleOptionChange}
-                    style={{backgroundColor:'#0532A3',borderRadius:30,marginLeft:'30%',
+                    style={{backgroundColor:'black',borderRadius:5,marginLeft:'30%',
                     width:'25%',paddingVertical:'1.15%',
                     display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'
                   }}
@@ -908,7 +908,7 @@ if(key<(statistique.length-1))
 
   return(
 
-  <View  key={key}  style={{backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'4.5%',borderRadius:getResponsiveFontSize(15),marginTop:'1.5%',
+  <View  key={key}  style={{backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'4.5%',borderRadius:getResponsiveFontSize(5),marginTop:'1.5%',
   display:'flex',justifyContent:'space-between',borderBottomWidth:1,borderColor:'#EBEAEA'
 ,marginBottom:'1%'
 }}>

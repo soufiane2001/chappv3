@@ -753,7 +753,7 @@ const showToast=()=>{
 
   return (
 <LinearGradient ref={myRef} onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%"}}
-      colors={['#FF5733', '#FFC300', '#36A2EB']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
     
     >
 
@@ -832,13 +832,13 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
 <Text style={{fontSize:getResponsiveFontSize(15),fontFamily:'PoppinsMedium',color:'#606060',marginLeft:'6.5%',marginBottom:'0.5%'}}>informations personnelles :</Text>
-<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'3%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"3%",borderRadius:25}}>
+<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'3%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"3%",borderRadius:5}}>
          <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>Modifier</Text>
 </TouchableOpacity>
 <TextInput 
                 onChangeText={setNom}
                 value={nom}
-                style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'4%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948', }}
+                style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:5,marginTop:'4%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948', }}
                 placeholder="Nom"
                 placeholderTextColor="#BCBCBC" 
                 />
@@ -848,7 +848,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                <TextInput 
                   onChangeText={setPrenom}
                   value={prenom}
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
+                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:5,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
                   placeholder="Prenom"
                   placeholderTextColor="#BCBCBC" 
                   />
@@ -858,7 +858,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 <TextInput 
                   onChangeText={setCity}
                   value={city}
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
+                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:5,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
                   placeholder="Ville"
                   placeholderTextColor="#BCBCBC" 
                   />
@@ -868,7 +868,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                   onChangeText={setTel}
                   value={telephone}
                   keyboardType="numeric"
-                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:15,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
+                  style={{width:'90%',padding:"0%", borderColor:'#F0F0F0',paddingVertical:'2.4%',paddingLeft:'5%',borderRadius:5,marginTop:'7%',backgroundColor:'#F3F3FC',marginLeft:'5%',fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#484948',    }}
                   placeholder="telephone"
                   placeholderTextColor="#BCBCBC" 
                   />
@@ -889,7 +889,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                    data={secteurs}
                    initValue="Select Genre"
                    onChange={handleOptionChange3}
-                   style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
+                   style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:5}}
                  >
       
       
@@ -915,7 +915,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                  data={fonctions}
                  initValue="Select Genre"
                  onChange={handleOptionChange2}
-                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}
+                 style={{marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:5}}
                 >
        
                   <TouchableOpacity>
@@ -936,7 +936,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
           <TouchableOpacity onPress={toggleCalendar}>
-               <View style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:30}}>
+               <View style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:'7%',backgroundColor:'#F3F3FC',width:'90%',paddingVertical:'2.4%',paddingLeft:'5%',marginTop:"5%",marginLeft:'5%',borderWidth:1,borderColor:'#F7F7F7',borderRadius:5}}>
                     <Text style={{fontSize:getResponsiveFontSize(14),fontFamily:"PoppinsRegular",color:'#BCBCBC'}}>{Calendrier || 'Datenaissance'}</Text>
      
                     <Icon name="calendar" size={24} color="black" style={{marginLeft:'55%'}}/>

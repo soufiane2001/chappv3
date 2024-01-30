@@ -213,7 +213,7 @@ if (status == 'granted') {
       const options = {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': 'beea202376mshe4c6be4c51640bcp1ff648jsn02d760a55e42',
+          'X-RapidAPI-Key': 'f082f85c8fmsh2f28f58c7cbe5c2p1ac621jsn7ecb130e1d51',
           'X-RapidAPI-Host': 'ocr-extract-text.p.rapidapi.com'
         }
       };
@@ -221,28 +221,34 @@ if (status == 'granted') {
       try {
         const response = await fetch(url, options);
         const result = await response.json();
-        console.log("..........");
+        console.log("//////////////////////////");
         console.log(result);
         var resultArray = result.text.split("\n");
-         console.log(resultArray);
-         const outputArray =resultArray.map(str => parseFloat(str.replace(/[^\d.]/g, '')));
-         let newArray = outputArray.filter(value => !isNaN(value));
-         console.log(newArray);
-         const filteredArray = newArray.filter(value => {
-          const decimalPart = (value.toString().split('.')[1] || '').length;
-          return decimalPart < 8;
-        });
-        console.log(filteredArray);
-        const largestNumber = findLargestNumber(filteredArray);
-      //  console.log(largestNumber)
-        
-        if(newArray.length>0 && largestNumber!=undefined){
+        // console.log(resultArray);
+        // const outputArray =resultArray.map(str => parseFloat(str.replace(/[^\d.]/g, '')));
+        // let newArray = outputArray.filter(value => !isNaN(value));
+        // console.log(newArray);
+         //const filteredArray = newArray.filter(value => {
+         // const decimalPart = (value.toString().split('.')[1] || '').length;
+         // return decimalPart < 2;
+        //});
+       console.log(result.text);
+const prix = result.text.match(/\b\d+\.\d+\b/g);
+      console.log("Les prix trouvés sont :", prix);
+      var largestNumber=null;
+      if(prix!=null){
+      var prixFloats = prix.map(parseFloat);
+      
+        var largestNumber = findLargestNumber(prixFloats);
+        console.log(largestNumber)
+     }
+        if(prix!=null || largestNumber!=null){
           setload('none')
  navigation.navigate('OcrResult',{prix:largestNumber})
           }
         else{
           setload('none')
-          alert("aucun prix detecte")
+          alert("aucun prix detecte Ressaye")
 
 
         }
@@ -418,7 +424,7 @@ lines.forEach(line => {
 
      
 const findLargestNumber=(numbers)=> {
-  if (numbers.length === 0) {
+  if (numbers === null) {
     
     return null; // Return null if the array is empty
   }
@@ -639,7 +645,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
        
         <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'100%',paddingVertical:"3%"}}
-         colors={['#FF5733', '#FFC300', '#FFC500']}
+         colors={['#528f76', '#5EC309', '#5CCA00']}
        
        >
 

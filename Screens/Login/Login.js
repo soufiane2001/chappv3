@@ -234,7 +234,7 @@ return (
       <SignedOut>
 
  <View style={{flex:1}}>
-   <View  onLayout={onLayout} style={{position:'relative',zIndex:854544,backgroundColor:'white',flex:1,display:'flex',justifyContent:'center',paddingHorizontal:"5%",paddingVertical:'7%'}}>
+   <View  onLayout={onLayout} style={{position:'relative',zIndex:854544,backgroundColor:'white',flex:1,display:'flex',justifyContent:'center',paddingHorizontal:"5%",paddingVertical:'2%'}}>
      
    
 
@@ -290,8 +290,8 @@ return (
 
 
 
-   <Image source={require('../../assets/logo.png')} style={{width:"14%",height:'10%',marginLeft:'85%',resizeMode:'contain'}} />
-   <Text style={{fontSize:getResponsiveFontSize(20),fontFamily:globalStyles.b.fontFamily}}>Connectez-vous à votre compte</Text>
+   <Image source={require('../../assets/expensia.png')} style={{width:getResponsiveFontSize(100),height:getResponsiveFontSize(30),marginLeft:'65%',resizeMode:'stretch'}} />
+   <Text style={{fontSize:getResponsiveFontSize(20),fontFamily:globalStyles.b.fontFamily,marginTop:'5%'}}>Connectez-vous à votre compte</Text>
   
    
    <View style={{display:'flex',flexDirection:'row',marginTop:"-1.5%"}}>

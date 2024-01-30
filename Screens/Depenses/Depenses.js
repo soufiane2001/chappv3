@@ -808,7 +808,7 @@ const showit=()=>{
 
 
 <ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(5)}}>
-<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'3%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"3%",borderRadius:25}}>
+<TouchableOpacity onPress={()=>{updateItemsFromFirebase()}}  style={{width:"25%",marginTop:'3%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',marginBottom:"3%",borderRadius:5}}>
          <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>Modifier</Text>
 </TouchableOpacity>
 
@@ -875,7 +875,7 @@ const showit=()=>{
 
 
 
-<View key={index}  style={{backgroundColor:'white',paddingHorizontal:'1%',paddingVertical:'5.5%',borderRadius:15,borderWidth:1,borderColor:'#E5E5E7',marginTop:'4%',
+<View key={index}  style={{backgroundColor:'white',paddingHorizontal:'1%',paddingVertical:'5.5%',borderRadius:5,borderWidth:1,borderColor:'#E5E5E7',marginTop:'4%',
   display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'97%',marginLeft:'1.8%',
 ...Platform.select({
   ios: {
@@ -895,7 +895,7 @@ const showit=()=>{
 
 
 <View style={{
-backgroundColor:'#4816FF',width:'24%',color:'white',paddingHorizontal:'3%',paddingVertical:'0.35%',borderRadius:12,
+backgroundColor:'#4816FF',width:'24%',color:'white',paddingHorizontal:'3%',paddingVertical:'0.35%',borderRadius:5,
 alignSelf:'flex-start',marginTop:'2%',marginLeft:'-2%'
 }}>
   <Text style={{fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',
@@ -907,7 +907,7 @@ alignSelf:'flex-start',marginTop:'2%',marginLeft:'-2%'
 
 
 <TouchableOpacity onPress={()=>{toggledepense(index)}} style={{
-backgroundColor:'#40DC01',color:'white',paddingHorizontal:'2.5%',paddingVertical:'1%',borderRadius:10,display:'flex',flexDirection:'row',
+backgroundColor:'#40DC01',color:'white',paddingHorizontal:'2.5%',paddingVertical:'1%',borderRadius:5,display:'flex',flexDirection:'row',
 alignItems:'center',alignSelf:'flex-start',marginTop:'2%',marginRight:'2%'
 }}>
   <Text style={{fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',

@@ -51,8 +51,8 @@ const Setupdepense=({navigation,route }) =>{
   {type:"Transport et voiture",montant:0,depense:[],photo:"https://cdn-icons-png.flaticon.com/512/5771/5771799.png"},
   {type:"Voyages",montant:0,depense:[],photo:"https://cdn-icons-png.flaticon.com/512/3125/3125848.png"},
   {type:"Epargne",montant:0,depense:[],photo:'https://cdn-icons-png.flaticon.com/512/2721/2721091.png'},
-  {type:"Eau",montant:0,depense:[],photo:'https://cdn-icons-png.flaticon.com/512/850/850785.png'},
-  {type:"Electricité",montant:0,depense:[],photo:'https://cdn-icons-png.flaticon.com/512/2807/2807571.png'},
+  {type:"Eau/Electricité",montant:0,depense:[],photo:'https://cdn-icons-png.flaticon.com/512/4405/4405283.png'},
+ // {type:"Electricité",montant:0,depense:[],photo:'https://cdn-icons-png.flaticon.com/512/2807/2807571.png'},
   {type:"Autres",montant:0,depense:[],photo:'https://cdn-icons-png.flaticon.com/512/744/744465.png'},
   {type:"Activités sportives",montant:0,depense:[],photo:'https://cdn-icons-png.flaticon.com/512/2216/2216769.png'},
 ]);
@@ -216,7 +216,7 @@ const Setupdepense=({navigation,route }) =>{
 
   return (
 <LinearGradient ref={myRef}  onLayout={onLayout} style={{backgroundColor:'white',flex:1,paddingHorizontal:"0%"}}
-      colors={['#FF5733', '#FFC300', '#36A2EB']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
     
     >
 
@@ -236,7 +236,7 @@ const Setupdepense=({navigation,route }) =>{
 
 
 
-<Text style={{fontSize:getResponsiveFontSize(14),fontFamily:'PoppinsMedium',color:'black',textAlign:'center'}}>Etablir votre budget de dépenses prévisionnelles </Text>
+<Text style={{fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'black',textAlign:'center'}}>Etablir votre budget de dépenses prévisionnelles </Text>
 
 
 <ScrollView contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(25)}} style={{flex:1,marginTop:'7%',padding:'0%',paddingLeft:'1%',paddingRight:'1%',paddingVertical:'0%'}}>
@@ -299,7 +299,7 @@ const Setupdepense=({navigation,route }) =>{
   {depenses.map((x,index)=>
 
 
-<View key={index}  style={{backgroundColor:'white',paddingHorizontal:'0%',paddingVertical:'5.5%',borderRadius:15,borderWidth:1,borderColor:'#E5E5E7',marginTop:'4%',
+<View key={index}  style={{backgroundColor:'white',paddingHorizontal:'0%',paddingVertical:'5.5%',borderRadius:5,borderWidth:1,borderColor:'#E5E5E7',marginTop:'4%',
   display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'93%',marginLeft:'3.8%',
 ...Platform.select({
   ios: {
@@ -321,7 +321,7 @@ const Setupdepense=({navigation,route }) =>{
 
 
 <View style={{
-backgroundColor:'#4816FF',width:'24%',color:'white',paddingHorizontal:'3%',paddingVertical:'0.35%',borderRadius:12,
+backgroundColor:'#4816FF',width:'24%',color:'white',paddingHorizontal:'3%',paddingVertical:'0.35%',borderRadius:5,
 alignSelf:'flex-start',marginRight:'1%',marginTop:'2%'
 }}>
   <Text style={{fontSize:getResponsiveFontSize(13),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',
@@ -333,7 +333,7 @@ alignSelf:'flex-start',marginRight:'1%',marginTop:'2%'
 
 
 <TouchableOpacity onPress={()=>{toggleModal(index)}} style={{
-backgroundColor:'#40DC01',color:'white',paddingHorizontal:'2.5%',paddingVertical:'1%',borderRadius:10,display:'flex',flexDirection:'row',
+backgroundColor:'#40DC01',color:'white',paddingHorizontal:'2.5%',paddingVertical:'1%',borderRadius:5,display:'flex',flexDirection:'row',
 alignItems:'center',alignSelf:'flex-start',marginRight:'1%',marginTop:'2%'
 }}>
   <Text style={{fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'white',textAlign:'center',
@@ -380,7 +380,7 @@ alignItems:'center',alignSelf:'flex-start',marginRight:'1%',marginTop:'2%'
     
 
 
-<TouchableOpacity disabled={false} onPress={()=>{handleOptions()}}  style={{width:"25%",marginBottom:'2%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',borderRadius:25}}>
+<TouchableOpacity disabled={false} onPress={()=>{handleOptions()}}  style={{width:"25%",marginBottom:'2%',marginLeft:'70%',backgroundColor:'#4A83FE',paddingHorizontal:'2%',paddingVertical:'2%',borderRadius:5}}>
          <Text style={{fontSize:getResponsiveFontSize(15),textAlign:'center',color:'white',fontFamily:'PoppinsRegular'}}>FINIR</Text>
 </TouchableOpacity>
 

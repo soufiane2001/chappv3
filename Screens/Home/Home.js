@@ -351,7 +351,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
        
      <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'48.5%',paddingVertical:"3%",display:'flex',justifyContent:'space-around'}}
-      colors={['#FF5733', '#FFC300', '#FFC500']}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
     
     >
 
@@ -385,7 +385,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
                                                    },
                                              android: {
                                                           elevation:10,
-                                             },}),backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'7%',borderRadius:15}}>
+                                             },}),backgroundColor:'white',paddingHorizontal:'7%',paddingVertical:'7%',borderRadius:5}}>
             
             <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems: 'center',}}>
 
@@ -436,17 +436,17 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
         </LinearGradient>
 
 <View style={{borderBottomWidth:getResponsiveFontSize(0.3),borderColor:'#EAEAEA',height:'10%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
-<TouchableOpacity onPress={()=>{setFocus(0);fetchItemsFromFirebase()}} style={{backgroundColor:focus==0?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"3%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(10)}}>
+<TouchableOpacity onPress={()=>{setFocus(0);fetchItemsFromFirebase()}} style={{backgroundColor:focus==0?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"3%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(5)}}>
 <Image source={{uri:"https://static.vecteezy.com/ti/vecteur-libre/p3/5022078-simple-barometre-vector-icon-modifiable-48-pixel-vectoriel.jpg"}} style={{marginRight:'2%',width:getResponsiveFontSize(20),height:getResponsiveFontSize(25),resizeMode:'contain',borderRadius:50}} />  
 <Text style={{marginTop:'2.5%',fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'#909090',textAlign:'center'}}>Barometre</Text>
 </TouchableOpacity>
 
-<TouchableOpacity onPress={()=>{setFocus(1)}} style={{backgroundColor:focus==1?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"1.5%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(10)}}>
+<TouchableOpacity onPress={()=>{setFocus(1)}} style={{backgroundColor:focus==1?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"1.5%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(5)}}>
 <Image source={{uri:"https://cdn-icons-png.flaticon.com/512/5501/5501375.png"}} style={{width:getResponsiveFontSize(23),height:getResponsiveFontSize(22),resizeMode:'contain',borderRadius:50}} />  
 <Text style={{marginTop:'2.5%',fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'#909090',textAlign:'center'}}>Depenses</Text>
 </TouchableOpacity>
 
-<TouchableOpacity onPress={()=>{setFocus(2)}} style={{backgroundColor:focus==2?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"1.5%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(10)}}>
+<TouchableOpacity onPress={()=>{setFocus(2)}} style={{backgroundColor:focus==2?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"1.5%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(5)}}>
 <Image source={{uri:"https://cdn-icons-png.flaticon.com/512/6553/6553997.png"}} style={{width:getResponsiveFontSize(23),height:getResponsiveFontSize(25),resizeMode:'contain',borderRadius:50}} />  
 <Text style={{marginTop:'2.5%',fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'#909090',textAlign:'center'}}>Revenus</Text>
 </TouchableOpacity>
@@ -468,7 +468,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
  return(
  
  
- <TouchableOpacity key={index}  style={{backgroundColor:'white',paddingHorizontal:'3%',paddingVertical:'10%',borderRadius:getResponsiveFontSize(15),marginTop:'5.5%',
+ <TouchableOpacity key={index}  style={{backgroundColor:'white',paddingHorizontal:'3%',paddingVertical:'10%',borderRadius:getResponsiveFontSize(5),marginTop:'5.5%',
    display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'93%',marginLeft:'3.8%',
  ...Platform.select({
    ios: {
@@ -528,7 +528,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
  
  
  {m>0 &&
- <LinearGradient  style={{height:getResponsiveFontSize(104),opacity:0.2,borderRadius:getResponsiveFontSize(15),width:`${ (((m/x.montant)*100+7)<100 ? ((m/x.montant)*100+7) : 107)}%`,backgroundColor:'white',position:'absolute',top:"0%",left:"0%",paddingHorizontal:"2%",flex:1,paddingVertical:"3%"}}
+ <LinearGradient  style={{height:getResponsiveFontSize(104),opacity:0.2,borderRadius:getResponsiveFontSize(5),width:`${ (((m/x.montant)*100+7)<100 ? ((m/x.montant)*100+7) : 107)}%`,backgroundColor:'white',position:'absolute',top:"0%",left:"0%",paddingHorizontal:"2%",flex:1,paddingVertical:"3%"}}
  colors={['#F3F0F0',m/x.montant*100 <30 ?'gray' :m/x.montant*100 <80 ? 'blue' : 'red']}
  start={{ x: 0, y: 0 }} // Start position (top-left)
  end={{ x: 0.75, y: 1.85 }} 
