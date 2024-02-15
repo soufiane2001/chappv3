@@ -197,7 +197,7 @@ return(
    },})}}>
  <TouchableOpacity style={{display:'flex',flexDirection:'row',alignItems:'center'}} onPress={()=>{anuller(x.donne.id,x.type)}}>
 <Image source={{uri:"https://cdn-icons-png.freepik.com/512/3807/3807871.png"}} style={{marginTop:'0.5%',width:getResponsiveFontSize(20),height:getResponsiveFontSize(20),resizeMode:'contain',borderRadius:50}} />
-<Text  style={{fontSize:getResponsiveFontSize(10),fontFamily:'PoppinsMedium',color:'red',marginLeft:'2%'}}>Anuller</Text>
+<Text  style={{fontSize:getResponsiveFontSize(11.5),fontFamily:'PoppinsMedium',color:'red',marginLeft:'2%'}}>Annuller</Text>
 </TouchableOpacity>
 
 <View style={{marginTop:'0%',display:'flex',flexDirection:'row',alignItems:'center'}}>

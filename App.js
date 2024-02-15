@@ -37,6 +37,7 @@ import Parametere from './Screens/Parametre/Parametre';
 import Transactions from './Screens/Transactions/Transaction';
 import Wallet from './Screens/Wallet/Wallet';
 import Addcard from './Screens/Wallet/Addcard';
+import Welcom from './Screens/Welcom/Welcom';
 
 
 
@@ -74,7 +75,7 @@ export default function App() {
     <ClerkProvider publishableKey={'pk_test_c3VyZS1yYWJiaXQtNzcuY2xlcmsuYWNjb3VudHMuZGV2JA'}>
      
 <NavigationContainer>
-    <Stack.Navigator initialRouteName='Login' >
+    <Stack.Navigator initialRouteName='Welcom' >
 
         <Stack.Screen name="Registre"component={Signin} options={{ title: 'registre',headerShown:false }}/>
         <Stack.Screen name="Login" component={Login} options={{ title: 'login',headerShown:false }} />
@@ -94,6 +95,7 @@ export default function App() {
         <Stack.Screen name="Transactions" component={Transactions}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="Wallet" component={Wallet}  options={{ title: 'Welcome',headerShown:false }} />
         <Stack.Screen name="Addcard" component={Addcard}  options={{ title: 'Welcome',headerShown:false }} />
+        <Stack.Screen name="Welcom" component={Welcom}  options={{ title: 'Welcome',headerShown:false }} />
     </Stack.Navigator>
   </NavigationContainer>
 

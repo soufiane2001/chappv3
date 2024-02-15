@@ -212,8 +212,12 @@ if (status == 'granted') {
       const url = 'https://ocr-extract-text.p.rapidapi.com/ocr?url='+x;
       const options = {
         method: 'GET',
+        url: 'https://ocr-extract-text.p.rapidapi.com/ocr',
+        params: {
+          url: 'https://qph.cf2.quoracdn.net/main-qimg-60dad75c0dddf8f4aa1a95040d7c3ca5-pjlq'
+        },
         headers: {
-          'X-RapidAPI-Key': 'f082f85c8fmsh2f28f58c7cbe5c2p1ac621jsn7ecb130e1d51',
+          'X-RapidAPI-Key': '7bc9c4cb1bmsh63ea1d613ab28f2p1c7640jsn14fcad894c62',
           'X-RapidAPI-Host': 'ocr-extract-text.p.rapidapi.com'
         }
       };

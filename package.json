@@ -60,6 +60,7 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-toastify": "^0.2.2",
     "react-native-web": "~0.19.6",
+    "react-spring": "^9.7.3",
     "undefined": "expo-auth-session/providers/google"
   },
   "devDependencies": {

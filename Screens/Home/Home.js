@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,TextInput,Button, FlatList, SafeAreaView, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button, FlatList, SafeAreaView, Image, Easing,TouchableOpacity, ScrollView, ActivityIndicator, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
@@ -22,6 +22,7 @@ import ModalSelector from 'react-native-modal-selector';
 import Modal from 'react-native-modal';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { useSpring, animated } from 'react-spring';
 import Barometre from '../Barometre/Barometre';
 import Depenses from '../Depenses/Depenses';
 import Budgets from '../Budgets/Budgets';
@@ -36,6 +37,7 @@ function Home({navigation,route }) {
     const [componentWidth, setComponentWidth] = React.useState(0);
     const [alerto, setAlerto] = React.useState(true);
     const [focus, setFocus] = React.useState(0);
+    const CARD_HEIGHT = 200;
 
     const [depenses, setDepenses] = React.useState(
       [
@@ -307,7 +309,44 @@ const updateData =async () => {
   
   
 
+    const position = useRef(new Animated.Value(0)).current;
 
+    useEffect(() => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(position, {
+            toValue: 1,
+            duration: 1000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+          Animated.timing(position, {
+            toValue: 0,
+            duration: 1000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    }, []);
+  
+ 
+  
+    const translateY = position.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 5],
+    });
+
+    const scrollY = useRef(new Animated.Value(0)).current;
+
+    const translateYy = scrollY.interpolate({
+      inputRange: [0, 100], // Adjust these values as needed
+      outputRange: [0, 50], // Adjust these values as needed
+      extrapolate: 'clamp'
+    });
+  
+
+    
 
 
 
@@ -363,9 +402,13 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
             navigation.navigate('Parameter',{id:values})}}>
             <Ionicons name="settings" size={getResponsiveFontSize(26)} color="white" />
            </TouchableOpacity>
+           <Animated.View style={[ {
+
+  }, { transform: [ { translateY }] }]}>
             <TouchableOpacity onPress={()=>{navigation.navigate("Camera")}}>
-            <Ionicons name="scan"     size={getResponsiveFontSize(26)} color="white" />
+            <Ionicons name="scan"     size={getResponsiveFontSize(32)} color="white" />
             </TouchableOpacity>
+            </Animated.View>
             <TouchableOpacity onPress={()=>{navigation.navigate("Login")}}>
             <AntDesign name="logout" size={getResponsiveFontSize(26)} color="white" />
             
@@ -458,7 +501,9 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
 
 {focus ==0 && (
  
-<ScrollView  contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(20)}} style={{marginTop:'0%'}}>
+<ScrollView  
+
+  contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(20)}} style={{marginTop:'0%'}}>
 { depenses.map((x,index)=>{
  
  var pourcentage=0;
@@ -467,7 +512,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
  
  return(
  
- 
+  <Animated.View>
  <TouchableOpacity key={index}  style={{backgroundColor:'white',paddingHorizontal:'3%',paddingVertical:'10%',borderRadius:getResponsiveFontSize(5),marginTop:'5.5%',
    display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'93%',marginLeft:'3.8%',
  ...Platform.select({
@@ -546,7 +591,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
  
  
    </TouchableOpacity>
- 
+ </Animated.View>
  
  
  

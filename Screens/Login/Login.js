@@ -294,7 +294,7 @@ return (
    <Text style={{fontSize:getResponsiveFontSize(20),fontFamily:globalStyles.b.fontFamily,marginTop:'5%'}}>Connectez-vous à votre compte</Text>
   
    
-   <View style={{display:'flex',flexDirection:'row',marginTop:"-1.5%"}}>
+   <View style={{display:'flex',flexDirection:'row',marginTop:"-1.5%",alignItems:'center'}}>
     
     <Text style={{marginTop:'1.25%',fontSize:getResponsiveFontSize(13.5),fontFamily:globalStyles.r.fontFamily}}>Tu n'en as pas ? 
   
