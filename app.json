@@ -17,10 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.souf2001.cashapp",
-      "runtimeVersion": {
-        "policy": "appVersion"
-      }
+      "bundleIdentifier": "com.souf2001.cashapp"
     },
     "android": {
       "adaptiveIcon": {

@@ -334,13 +334,13 @@ const updateData =async () => {
   
     const translateY = position.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 5],
+      outputRange: [0, 2],
     });
 
     const scrollY = useRef(new Animated.Value(0)).current;
 
     const translateYy = scrollY.interpolate({
-      inputRange: [0, 100], // Adjust these values as needed
+      inputRange: [0, 50], // Adjust these values as needed
       outputRange: [0, 50], // Adjust these values as needed
       extrapolate: 'clamp'
     });
@@ -389,7 +389,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 
        
-     <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'48.5%',paddingVertical:"3%",display:'flex',justifyContent:'space-around'}}
+     <LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'40%',paddingVertical:"3%",display:'flex',justifyContent:'space-around'}}
       colors={['#528f76', '#5EC309', '#5CCA00']}
     
     >
@@ -450,7 +450,7 @@ display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center',h
 
 <View>
 <TouchableOpacity style={{marginTop:'40%'}} onPress={()=>{navigation.navigate('Statistique')}}>
-<Image source={{uri:'https://cdn-icons-png.flaticon.com/512/2920/2920349.png'}} 
+<Image source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4sHN5zIh7yLE1q1OpIyZ9a0aJiya3cYaiPHufRCmRMA&s'}} 
 style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFontSize(50),resizeMode:'contain'}} />
 </TouchableOpacity>
 </View>
@@ -478,10 +478,10 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
 
         </LinearGradient>
 
-<View style={{borderBottomWidth:getResponsiveFontSize(0.3),borderColor:'#EAEAEA',height:'10%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
+<View style={{borderBottomWidth:getResponsiveFontSize(0.3),borderColor:'#EAEAEA',height:'8%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
 <TouchableOpacity onPress={()=>{setFocus(0);fetchItemsFromFirebase()}} style={{backgroundColor:focus==0?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"3%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(5)}}>
-<Image source={{uri:"https://static.vecteezy.com/ti/vecteur-libre/p3/5022078-simple-barometre-vector-icon-modifiable-48-pixel-vectoriel.jpg"}} style={{marginRight:'2%',width:getResponsiveFontSize(20),height:getResponsiveFontSize(25),resizeMode:'contain',borderRadius:50}} />  
-<Text style={{marginTop:'2.5%',fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'#909090',textAlign:'center'}}>Barometre</Text>
+<Image source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtO1e98alT1HOIb5bR9wpRita4JIU4ajabX2Htu3bQeg&s"}} style={{marginRight:'2%',width:getResponsiveFontSize(20),height:getResponsiveFontSize(25),resizeMode:'contain',borderRadius:50}} />  
+<Text style={{marginTop:'2.5%',fontSize:getResponsiveFontSize(12),fontFamily:'PoppinsMedium',color:'#909090',textAlign:'center'}}>Operations</Text>
 </TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{setFocus(1)}} style={{backgroundColor:focus==1?'#F3F3F3':'white',width:'30%',display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',borderWidth:getResponsiveFontSize(0.5),borderColor:'#EAEAEA',paddingHorizontal:"1.5%",paddingVertical:'1%',borderRadius:getResponsiveFontSize(5)}}>
@@ -500,7 +500,31 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
 </View>
 
 {focus ==0 && (
- 
+  <>
+ <View style={{height:'10%',borderBottomWidth:1,borderColor:'#F1F1F1',display:'flex',flexDirection:'row',alignItems:"center",justifyContent:'space-around',padding:'0.5%'}}>
+
+  <View style={{width:'30%',borderWidth:1,borderColor:'#EAEAEA',borderRadius:getResponsiveFontSize(10),height:'90%',display:'flex',alignItems:'center',justifyContent:'center',padding:"2%"}}>
+<Text style={{color:'#818181',fontSize:getResponsiveFontSize(14)}}>Ce jour </Text>
+<Text style={{color:'#646464',fontSize:getResponsiveFontSize(14)}}>2 0000,00 DH</Text>
+  </View>
+
+
+  <View style={{width:'30%',borderWidth:1,borderColor:'#EAEAEA',borderRadius:getResponsiveFontSize(10),height:'90%',display:'flex',alignItems:'center',justifyContent:'center',padding:"2%"}}>
+<Text style={{color:'#818181',fontSize:getResponsiveFontSize(14)}}>Hier </Text>
+<Text style={{color:'#646464',fontSize:getResponsiveFontSize(14)}}>2 0000,00 DH</Text>
+  </View>
+
+
+  <View style={{width:'30%',borderWidth:1,borderColor:'#EAEAEA',borderRadius:getResponsiveFontSize(10),height:'90%',display:'flex',alignItems:'center',justifyContent:'center',padding:"2%"}}>
+<Text style={{color:'#818181',fontSize:getResponsiveFontSize(14)}}>Cette Semaine </Text>
+<Text style={{color:'#646464',fontSize:getResponsiveFontSize(14)}}>2 0000,00 DH</Text>
+  </View>
+
+
+
+
+
+  </View>
 <ScrollView  
 
   contentContainerStyle={{flexGrow:1,paddingVertical:getResponsiveFontSize(20)}} style={{marginTop:'0%'}}>
@@ -601,7 +625,7 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
  
  })}
  </ScrollView>
- )
+ </>)
 
 }
 
@@ -612,6 +636,32 @@ style={{marginTop:'1.5%',width:getResponsiveFontSize(50),height:getResponsiveFon
 {focus ==2 && (<Budgets/> )
 
 }
+<LinearGradient  style={{backgroundColor:'white',paddingHorizontal:"2%",height:'7%',display:'flex',justifyContent:'center'}}
+      colors={['#528f76', '#5EC309', '#5CCA00']}
+    
+    >
+       <View style={{paddingHorizontal:'0%',paddingVertical:"0%",display:'flex',flexDirection:'row',marginTop:'1.5%',justifyContent:'space-between'}}>
+           <TouchableOpacity onPress={async()=>{
+            const values = await AsyncStorage.getItem('userid');
+            navigation.navigate('Parameter',{id:values})}}>
+            <Ionicons name="settings" size={getResponsiveFontSize(26)} color="white" />
+           </TouchableOpacity>
+           <Animated.View style={[ {
+
+  }, { transform: [ { translateY }] }]}>
+            <TouchableOpacity onPress={()=>{navigation.navigate("Camera")}}>
+            <Ionicons name="scan"     size={getResponsiveFontSize(32)} color="white" />
+            </TouchableOpacity>
+            </Animated.View>
+            <TouchableOpacity onPress={()=>{navigation.navigate("Login")}}>
+            <AntDesign name="logout" size={getResponsiveFontSize(26)} color="white" />
+            
+            </TouchableOpacity>
+            </View>
+
+
+
+</LinearGradient>
 
 
 
